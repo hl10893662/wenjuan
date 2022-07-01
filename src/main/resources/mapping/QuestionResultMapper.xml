@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.wenjuan.dao.QuestionResultMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.wenjuan.domain.QuestionResult" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="criminal_id" property="criminalId" jdbcType="VARCHAR" />
+    <result column="criminal_name" property="criminalName" jdbcType="VARCHAR" />
+    <result column="question_no" property="questionNo" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fid, criminal_id, criminal_name, question_no, result, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from question_result
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCriminalIdAndQuestionNo" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from question_result
+    where criminal_id = #{criminalId,jdbcType=VARCHAR}
+    and question_no = #{questionNo,jdbcType=VARCHAR}
+    order by fid desc
+    limit 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from question_result
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.wenjuan.domain.QuestionResult" >
+    insert into question_result (fid, criminal_id, criminal_name,
+      question_no, result, create_time
+      )
+    values (#{fid,jdbcType=INTEGER}, #{criminalId,jdbcType=VARCHAR}, #{criminalName,jdbcType=VARCHAR},
+      #{questionNo,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.wenjuan.domain.QuestionResult" >
+    insert into question_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="criminalId != null" >
+        criminal_id,
+      </if>
+      <if test="criminalName != null" >
+        criminal_name,
+      </if>
+      <if test="questionNo != null" >
+        question_no,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="criminalId != null" >
+        #{criminalId,jdbcType=VARCHAR},
+      </if>
+      <if test="criminalName != null" >
+        #{criminalName,jdbcType=VARCHAR},
+      </if>
+      <if test="questionNo != null" >
+        #{questionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.wenjuan.domain.QuestionResult" >
+    update question_result
+    <set >
+      <if test="criminalId != null" >
+        criminal_id = #{criminalId,jdbcType=VARCHAR},
+      </if>
+      <if test="criminalName != null" >
+        criminal_name = #{criminalName,jdbcType=VARCHAR},
+      </if>
+      <if test="questionNo != null" >
+        question_no = #{questionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.wenjuan.domain.QuestionResult" >
+    update question_result
+    set criminal_id = #{criminalId,jdbcType=VARCHAR},
+      criminal_name = #{criminalName,jdbcType=VARCHAR},
+      question_no = #{questionNo,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

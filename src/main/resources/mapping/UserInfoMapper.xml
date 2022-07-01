@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.wenjuan.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.wenjuan.domain.UserInfo" >
+    <id column="no" property="no" jdbcType="VARCHAR" />
+    <result column="groupno" property="groupno" jdbcType="VARCHAR" />
+    <result column="biggroupno" property="biggroupno" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="kultur" property="kultur" jdbcType="VARCHAR" />
+    <result column="bridewell_date" property="bridewellDate" jdbcType="TIMESTAMP" />
+    <result column="imprison_date" property="imprisonDate" jdbcType="VARCHAR" />
+    <result column="imprison_begin" property="imprisonBegin" jdbcType="TIMESTAMP" />
+    <result column="imprison_end" property="imprisonEnd" jdbcType="TIMESTAMP" />
+    <result column="technic" property="technic" jdbcType="VARCHAR" />
+    <result column="technic_date" property="technicDate" jdbcType="TIMESTAMP" />
+    <result column="kulturbreak" property="kulturbreak" jdbcType="VARCHAR" />
+    <result column="kulturbreak_date" property="kulturbreakDate" jdbcType="TIMESTAMP" />
+    <result column="prison_state" property="prisonState" jdbcType="INTEGER" />
+    <result column="full_date" property="fullDate" jdbcType="TIMESTAMP" />
+    <result column="born" property="born" jdbcType="VARCHAR" />
+    <result column="crime" property="crime" jdbcType="VARCHAR" />
+    <result column="process_level" property="processLevel" jdbcType="CHAR" />
+    <result column="labor_type" property="laborType" jdbcType="CHAR" />
+    <result column="evaluate_level" property="evaluateLevel" jdbcType="CHAR" />
+    <result column="is_build" property="isBuild" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    no, groupno, biggroupno, pwd, name, level, state, note, age, sex, address, kultur,
+    bridewell_date, imprison_date, imprison_begin, imprison_end, technic, technic_date,
+    kulturbreak, kulturbreak_date, prison_state, full_date, born, crime, process_level,
+    labor_type, evaluate_level
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where no = #{no,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectPage" resultMap="BaseResultMap" >
+	SELECT i.NO,
+    groupno,
+    biggroupno,
+    pwd,
+    i.NAME,
+    LEVEL,
+    state,
+    note,
+    age,
+    sex,
+    address,
+    kultur,
+    i.bridewell_date,
+    i.imprison_date,
+    i.imprison_begin,
+    imprison_end,
+    technic,
+    technic_date,
+    kulturbreak,
+    kulturbreak_date,
+    prison_state,
+    full_date,
+    born,
+    i.crime,
+    process_level,
+    labor_type,
+    evaluate_level,
+    d.NO AS is_build
+    FROM
+    user_info i
+
+    LEFT JOIN user_info_detail d ON i.`no` =d.`no`
+    where 1 =1
+    <if test=" no != null and no!='' ">
+    and i.no =#{no,jdbcType=VARCHAR}
+    </if>
+    <if test=" name != null and name!=''">
+    and i.name like concat('%',#{name,jdbcType=VARCHAR},'%')
+    </if>
+<!--    <if test=" prison != null">-->
+<!--    and prison = #{prison,jdbcType=VARCHAR}-->
+<!--    </if>-->
+    <if test=" bigGroup != null and bigGroup!=''">
+      and i.biggroupno = #{bigGroup,jdbcType=VARCHAR}
+    </if>
+    <if test=" group != null and group!=''">
+      and i.groupno = #{group,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_info
+    where no = #{no,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.wenjuan.domain.UserInfo" >
+    insert into user_info (no, groupno, biggroupno,
+      pwd, name, level, state,
+      note, age, sex, address,
+      kultur, bridewell_date, imprison_date,
+      imprison_begin, imprison_end, technic,
+      technic_date, kulturbreak, kulturbreak_date,
+      prison_state, full_date, born,
+      crime, process_level, labor_type,
+      evaluate_level)
+    values (#{no,jdbcType=VARCHAR}, #{groupno,jdbcType=VARCHAR}, #{biggroupno,jdbcType=VARCHAR},
+      #{pwd,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{state,jdbcType=INTEGER},
+      #{note,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR},
+      #{kultur,jdbcType=VARCHAR}, #{bridewellDate,jdbcType=TIMESTAMP}, #{imprisonDate,jdbcType=VARCHAR},
+      #{imprisonBegin,jdbcType=TIMESTAMP}, #{imprisonEnd,jdbcType=TIMESTAMP}, #{technic,jdbcType=VARCHAR},
+      #{technicDate,jdbcType=TIMESTAMP}, #{kulturbreak,jdbcType=VARCHAR}, #{kulturbreakDate,jdbcType=TIMESTAMP},
+      #{prisonState,jdbcType=INTEGER}, #{fullDate,jdbcType=TIMESTAMP}, #{born,jdbcType=VARCHAR},
+      #{crime,jdbcType=VARCHAR}, #{processLevel,jdbcType=CHAR}, #{laborType,jdbcType=CHAR},
+      #{evaluateLevel,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.wenjuan.domain.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="groupno != null" >
+        groupno,
+      </if>
+      <if test="biggroupno != null" >
+        biggroupno,
+      </if>
+      <if test="pwd != null" >
+        pwd,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="kultur != null" >
+        kultur,
+      </if>
+      <if test="bridewellDate != null" >
+        bridewell_date,
+      </if>
+      <if test="imprisonDate != null" >
+        imprison_date,
+      </if>
+      <if test="imprisonBegin != null" >
+        imprison_begin,
+      </if>
+      <if test="imprisonEnd != null" >
+        imprison_end,
+      </if>
+      <if test="technic != null" >
+        technic,
+      </if>
+      <if test="technicDate != null" >
+        technic_date,
+      </if>
+      <if test="kulturbreak != null" >
+        kulturbreak,
+      </if>
+      <if test="kulturbreakDate != null" >
+        kulturbreak_date,
+      </if>
+      <if test="prisonState != null" >
+        prison_state,
+      </if>
+      <if test="fullDate != null" >
+        full_date,
+      </if>
+      <if test="born != null" >
+        born,
+      </if>
+      <if test="crime != null" >
+        crime,
+      </if>
+      <if test="processLevel != null" >
+        process_level,
+      </if>
+      <if test="laborType != null" >
+        labor_type,
+      </if>
+      <if test="evaluateLevel != null" >
+        evaluate_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="no != null" >
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="groupno != null" >
+        #{groupno,jdbcType=VARCHAR},
+      </if>
+      <if test="biggroupno != null" >
+        #{biggroupno,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="kultur != null" >
+        #{kultur,jdbcType=VARCHAR},
+      </if>
+      <if test="bridewellDate != null" >
+        #{bridewellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imprisonDate != null" >
+        #{imprisonDate,jdbcType=VARCHAR},
+      </if>
+      <if test="imprisonBegin != null" >
+        #{imprisonBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imprisonEnd != null" >
+        #{imprisonEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="technic != null" >
+        #{technic,jdbcType=VARCHAR},
+      </if>
+      <if test="technicDate != null" >
+        #{technicDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kulturbreak != null" >
+        #{kulturbreak,jdbcType=VARCHAR},
+      </if>
+      <if test="kulturbreakDate != null" >
+        #{kulturbreakDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prisonState != null" >
+        #{prisonState,jdbcType=INTEGER},
+      </if>
+      <if test="fullDate != null" >
+        #{fullDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="born != null" >
+        #{born,jdbcType=VARCHAR},
+      </if>
+      <if test="crime != null" >
+        #{crime,jdbcType=VARCHAR},
+      </if>
+      <if test="processLevel != null" >
+        #{processLevel,jdbcType=CHAR},
+      </if>
+      <if test="laborType != null" >
+        #{laborType,jdbcType=CHAR},
+      </if>
+      <if test="evaluateLevel != null" >
+        #{evaluateLevel,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.wenjuan.domain.UserInfo" >
+    update user_info
+    <set >
+      <if test="groupno != null" >
+        groupno = #{groupno,jdbcType=VARCHAR},
+      </if>
+      <if test="biggroupno != null" >
+        biggroupno = #{biggroupno,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="kultur != null" >
+        kultur = #{kultur,jdbcType=VARCHAR},
+      </if>
+      <if test="bridewellDate != null" >
+        bridewell_date = #{bridewellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imprisonDate != null" >
+        imprison_date = #{imprisonDate,jdbcType=VARCHAR},
+      </if>
+      <if test="imprisonBegin != null" >
+        imprison_begin = #{imprisonBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imprisonEnd != null" >
+        imprison_end = #{imprisonEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="technic != null" >
+        technic = #{technic,jdbcType=VARCHAR},
+      </if>
+      <if test="technicDate != null" >
+        technic_date = #{technicDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kulturbreak != null" >
+        kulturbreak = #{kulturbreak,jdbcType=VARCHAR},
+      </if>
+      <if test="kulturbreakDate != null" >
+        kulturbreak_date = #{kulturbreakDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prisonState != null" >
+        prison_state = #{prisonState,jdbcType=INTEGER},
+      </if>
+      <if test="fullDate != null" >
+        full_date = #{fullDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="born != null" >
+        born = #{born,jdbcType=VARCHAR},
+      </if>
+      <if test="crime != null" >
+        crime = #{crime,jdbcType=VARCHAR},
+      </if>
+      <if test="processLevel != null" >
+        process_level = #{processLevel,jdbcType=CHAR},
+      </if>
+      <if test="laborType != null" >
+        labor_type = #{laborType,jdbcType=CHAR},
+      </if>
+      <if test="evaluateLevel != null" >
+        evaluate_level = #{evaluateLevel,jdbcType=CHAR},
+      </if>
+    </set>
+    where no = #{no,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.wenjuan.domain.UserInfo" >
+    update user_info
+    set groupno = #{groupno,jdbcType=VARCHAR},
+      biggroupno = #{biggroupno,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      kultur = #{kultur,jdbcType=VARCHAR},
+      bridewell_date = #{bridewellDate,jdbcType=TIMESTAMP},
+      imprison_date = #{imprisonDate,jdbcType=VARCHAR},
+      imprison_begin = #{imprisonBegin,jdbcType=TIMESTAMP},
+      imprison_end = #{imprisonEnd,jdbcType=TIMESTAMP},
+      technic = #{technic,jdbcType=VARCHAR},
+      technic_date = #{technicDate,jdbcType=TIMESTAMP},
+      kulturbreak = #{kulturbreak,jdbcType=VARCHAR},
+      kulturbreak_date = #{kulturbreakDate,jdbcType=TIMESTAMP},
+      prison_state = #{prisonState,jdbcType=INTEGER},
+      full_date = #{fullDate,jdbcType=TIMESTAMP},
+      born = #{born,jdbcType=VARCHAR},
+      crime = #{crime,jdbcType=VARCHAR},
+      process_level = #{processLevel,jdbcType=CHAR},
+      labor_type = #{laborType,jdbcType=CHAR},
+      evaluate_level = #{evaluateLevel,jdbcType=CHAR}
+    where no = #{no,jdbcType=VARCHAR}
+  </update>
+</mapper>

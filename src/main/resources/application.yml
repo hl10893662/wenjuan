@@ -1,0 +1,35 @@
+server:
+  port: 8090
+#  ssl:
+#    key-store: file:/Users/xiaohl/Documents/work/baozi/client.p12
+#    key-store-password: 12345678
+#    key-store-type: PKCS12
+#    key-alias: client
+
+spring:
+  datasource:
+    username: wenjuan
+    password: pNfSfd6FGESJkynA
+#    password: 123456
+    url: jdbc:mysql://124.222.183.197:3306/wenjuan?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+#    url: jdbc:mysql://127.0.0.1:3306/wenjuan?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.eno.baozi.wenjuan.dao
+
+logging:
+  level:
+    com:
+      eno: debug
+    org:
+      springframework: debug
+  file:
+    max-size: 10MB
+    max-history: 20
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

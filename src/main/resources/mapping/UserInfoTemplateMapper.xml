@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.wenjuan.dao.UserInfoTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.wenjuan.domain.UserInfoTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="main_no" property="mainNo" jdbcType="INTEGER" />
+    <result column="sub_no" property="subNo" jdbcType="INTEGER" />
+    <result column="main_title" property="mainTitle" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="choice" property="choice" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="choice_name" property="choiceName" jdbcType="VARCHAR" />
+    <result column="value_name" property="valueName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, main_no, sub_no, main_title, title, choice, type, choice_name, value_name, create_time,
+    remark
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+        <include refid="Base_Column_List" />
+    from user_info_template
+    order by main_no,sub_no
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user_info_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_info_template
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.wenjuan.domain.UserInfoTemplate" >
+    insert into user_info_template (id, main_no, sub_no,
+      main_title, title, choice,
+      type, choice_name, value_name,
+      create_time, remark)
+    values (#{id,jdbcType=INTEGER}, #{mainNo,jdbcType=INTEGER}, #{subNo,jdbcType=INTEGER},
+      #{mainTitle,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{choice,jdbcType=VARCHAR},
+      #{type,jdbcType=INTEGER}, #{choiceName,jdbcType=VARCHAR}, #{valueName,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.wenjuan.domain.UserInfoTemplate" >
+    insert into user_info_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mainNo != null" >
+        main_no,
+      </if>
+      <if test="subNo != null" >
+        sub_no,
+      </if>
+      <if test="mainTitle != null" >
+        main_title,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="choice != null" >
+        choice,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="choiceName != null" >
+        choice_name,
+      </if>
+      <if test="valueName != null" >
+        value_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mainNo != null" >
+        #{mainNo,jdbcType=INTEGER},
+      </if>
+      <if test="subNo != null" >
+        #{subNo,jdbcType=INTEGER},
+      </if>
+      <if test="mainTitle != null" >
+        #{mainTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="choice != null" >
+        #{choice,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="choiceName != null" >
+        #{choiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="valueName != null" >
+        #{valueName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.wenjuan.domain.UserInfoTemplate" >
+    update user_info_template
+    <set >
+      <if test="mainNo != null" >
+        main_no = #{mainNo,jdbcType=INTEGER},
+      </if>
+      <if test="subNo != null" >
+        sub_no = #{subNo,jdbcType=INTEGER},
+      </if>
+      <if test="mainTitle != null" >
+        main_title = #{mainTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="choice != null" >
+        choice = #{choice,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="choiceName != null" >
+        choice_name = #{choiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="valueName != null" >
+        value_name = #{valueName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.wenjuan.domain.UserInfoTemplate" >
+    update user_info_template
+    set main_no = #{mainNo,jdbcType=INTEGER},
+      sub_no = #{subNo,jdbcType=INTEGER},
+      main_title = #{mainTitle,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      choice = #{choice,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      choice_name = #{choiceName,jdbcType=VARCHAR},
+      value_name = #{valueName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

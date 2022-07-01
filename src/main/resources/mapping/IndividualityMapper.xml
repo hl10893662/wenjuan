@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.dangerous.report.mapper.IndividualityMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.dangerous.report.domain.Individuality" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fh" property="fh" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="criminal_id" property="criminalId" jdbcType="INTEGER" />
+    <result column="prison_time" property="prisonTime" jdbcType="DATE" />
+    <result column="fshrg" property="fshrg" jdbcType="INTEGER" />
+    <result column="fshrgjb" property="fshrgjb" jdbcType="VARCHAR" />
+    <result column="pzxrg" property="pzxrg" jdbcType="INTEGER" />
+    <result column="pzxrgjb" property="pzxrgjb" jdbcType="VARCHAR" />
+    <result column="cdxrg" property="cdxrg" jdbcType="INTEGER" />
+    <result column="cdxrgjb" property="cdxrgjb" jdbcType="VARCHAR" />
+    <result column="byxrg" property="byxrg" jdbcType="INTEGER" />
+    <result column="byxrgjb" property="byxrgjb" jdbcType="VARCHAR" />
+    <result column="yy" property="yy" jdbcType="INTEGER" />
+    <result column="yyjb" property="yyjb" jdbcType="VARCHAR" />
+    <result column="zk" property="zk" jdbcType="INTEGER" />
+    <result column="zkjb" property="zkjb" jdbcType="VARCHAR" />
+    <result column="sjz" property="sjz" jdbcType="INTEGER" />
+    <result column="sjzjb" property="sjzjb" jdbcType="VARCHAR" />
+    <result column="jsbx" property="jsbx" jdbcType="INTEGER" />
+    <result column="jsbxjb" property="jsbxjb" jdbcType="VARCHAR" />
+    <result column="shlb" property="shlb" jdbcType="INTEGER" />
+    <result column="shlbjb" property="shlbjb" jdbcType="VARCHAR" />
+    <result column="pgrq" property="pgrq" jdbcType="DATE" />
+    <result column="pghs" property="pghs" jdbcType="INTEGER" />
+    <result column="jybh" property="jybh" jdbcType="VARCHAR" />
+    <result column="jymc" property="jymc" jdbcType="VARCHAR" />
+    <result column="jqbh" property="jqbh" jdbcType="VARCHAR" />
+    <result column="jqmc" property="jqmc" jdbcType="VARCHAR" />
+    <result column="fjqbh" property="fjqbh" jdbcType="VARCHAR" />
+    <result column="fjqmc" property="fjqmc" jdbcType="VARCHAR" />
+    <result column="jsbx_hj" property="jsbxHj" jdbcType="INTEGER" />
+    <result column="jsbx_wx" property="jsbxWx" jdbcType="INTEGER" />
+    <result column="jsbx_qxza" property="jsbxQxza" jdbcType="INTEGER" />
+    <result column="jsbx_rzza" property="jsbxRzza" jdbcType="INTEGER" />
+    <result column="jsbx_jzzhz" property="jsbxJzzhz" jdbcType="INTEGER" />
+    <result column="blfs" property="blfs" jdbcType="DECIMAL" />
+    <result column="bldj" property="bldj" jdbcType="VARCHAR" />
+    <result column="ttfs" property="ttfs" jdbcType="DECIMAL" />
+    <result column="ttdj" property="ttdj" jdbcType="VARCHAR" />
+    <result column="zsfs" property="zsfs" jdbcType="DECIMAL" />
+    <result column="zsdj" property="zsdj" jdbcType="VARCHAR" />
+    <result column="jsbl" property="jsbl" jdbcType="DECIMAL" />
+    <result column="jstt" property="jstt" jdbcType="DECIMAL" />
+    <result column="jszs" property="jszs" jdbcType="DECIMAL" />
+    <result column="create_name" property="createName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fh, name, criminal_id, prison_time, fshrg, fshrgjb, pzxrg, pzxrgjb, cdxrg, cdxrgjb,
+    byxrg, byxrgjb, yy, yyjb, zk, zkjb, sjz, sjzjb, jsbx, jsbxjb, shlb, shlbjb, pgrq,
+    pghs, jybh, jymc, jqbh, jqmc, fjqbh, fjqmc, jsbx_hj, jsbx_wx, jsbx_qxza, jsbx_rzza,
+    jsbx_jzzhz, blfs, bldj, ttfs, ttdj, zsfs, zsdj, jsbl, jstt, jszs, create_name, create_time,
+    update_time, update_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from individuality
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <select id = "groupingByPrisonName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select bldj,i.zsdj,i.ttdj,i.fshrgjb,i.pzxrgjb,i.cdxrgjb,i.byxrgjb
+     from individuality i where
+    i.jymc like concat( #{prisonName,jdbcType=VARCHAR}, '%')
+  </select>
+
+  <select id = "groupingByBigGroupName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select bldj,i.zsdj,i.ttdj,i.fshrgjb,i.pzxrgjb,i.cdxrgjb,i.byxrgjb
+     from individuality i where
+    i.jqmc like concat( #{bigGroupName,jdbcType=VARCHAR}, '%')
+  </select>
+
+  <select id = "groupingByGroupName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select bldj,i.zsdj,i.ttdj,i.fshrgjb,i.pzxrgjb,i.cdxrgjb,i.byxrgjb
+     from individuality i where
+    i.fjqmc like concat( #{groupName,jdbcType=VARCHAR}, '%')
+  </select>
+  <select id = "selectFocusList" resultMap="BaseResultMap" >
+    select i.fh,i.jymc,i.jqmc,i.fjqmc,i.name from
+      (select * from individuality where id in(
+            select max(id) from individuality t group by t.fh)
+       ) i
+    where ( bldj = '极高分'
+    or zsdj = '极高分'
+    or ttdj = '极高分'
+    or fshrgjb ='高分'
+    or pzxrgjb ='高分'
+    or cdxrgjb ='高分'
+    or byxrgjb ='高分')
+    <if test="prisonName != null and prisonName!='' " >
+      and i.jymc like    concat('%',#{prisonName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="bigGroupName != null and bigGroupName!='' " >
+      and  i.jqmc like   concat('%',#{bigGroupName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="groupName != null and groupName!='' " >
+      and i.fjqmc like   concat('%',#{groupName,jdbcType=VARCHAR},'%')
+    </if>
+    order by blfs
+    desc
+    limit 10
+  </select>
+
+
+
+
+  <select id="selectLastOneByCriminalId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from individuality
+    where criminal_id = #{criminalId,jdbcType=VARCHAR}
+    order by id desc limit 1
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from individuality
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.dangerous.report.domain.Individuality" >
+    insert into individuality (id, fh, name,
+      criminal_id, prison_time, fshrg,
+      fshrgjb, pzxrg, pzxrgjb,
+      cdxrg, cdxrgjb, byxrg,
+      byxrgjb, yy, yyjb,
+      zk, zkjb, sjz, sjzjb,
+      jsbx, jsbxjb, shlb,
+      shlbjb, pgrq, pghs, jybh,
+      jymc, jqbh, jqmc, fjqbh,
+      fjqmc, jsbx_hj, jsbx_wx,
+      jsbx_qxza, jsbx_rzza, jsbx_jzzhz,
+      blfs, bldj, ttfs, ttdj,
+      zsfs, zsdj, jsbl, jstt,
+      jszs, create_name, create_time,
+      update_time, update_name)
+    values (#{id,jdbcType=INTEGER}, #{fh,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{criminalId,jdbcType=INTEGER}, #{prisonTime,jdbcType=DATE}, #{fshrg,jdbcType=INTEGER},
+      #{fshrgjb,jdbcType=VARCHAR}, #{pzxrg,jdbcType=INTEGER}, #{pzxrgjb,jdbcType=VARCHAR},
+      #{cdxrg,jdbcType=INTEGER}, #{cdxrgjb,jdbcType=VARCHAR}, #{byxrg,jdbcType=INTEGER},
+      #{byxrgjb,jdbcType=VARCHAR}, #{yy,jdbcType=INTEGER}, #{yyjb,jdbcType=VARCHAR},
+      #{zk,jdbcType=INTEGER}, #{zkjb,jdbcType=VARCHAR}, #{sjz,jdbcType=INTEGER}, #{sjzjb,jdbcType=VARCHAR},
+      #{jsbx,jdbcType=INTEGER}, #{jsbxjb,jdbcType=VARCHAR}, #{shlb,jdbcType=INTEGER},
+      #{shlbjb,jdbcType=VARCHAR}, #{pgrq,jdbcType=DATE}, #{pghs,jdbcType=INTEGER}, #{jybh,jdbcType=VARCHAR},
+      #{jymc,jdbcType=VARCHAR}, #{jqbh,jdbcType=VARCHAR}, #{jqmc,jdbcType=VARCHAR}, #{fjqbh,jdbcType=VARCHAR},
+      #{fjqmc,jdbcType=VARCHAR}, #{jsbxHj,jdbcType=INTEGER}, #{jsbxWx,jdbcType=INTEGER},
+      #{jsbxQxza,jdbcType=INTEGER}, #{jsbxRzza,jdbcType=INTEGER}, #{jsbxJzzhz,jdbcType=INTEGER},
+      #{blfs,jdbcType=DECIMAL}, #{bldj,jdbcType=VARCHAR}, #{ttfs,jdbcType=DECIMAL}, #{ttdj,jdbcType=VARCHAR},
+      #{zsfs,jdbcType=DECIMAL}, #{zsdj,jdbcType=VARCHAR}, #{jsbl,jdbcType=DECIMAL}, #{jstt,jdbcType=DECIMAL},
+      #{jszs,jdbcType=DECIMAL}, #{createName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.dangerous.report.domain.Individuality" >
+    insert into individuality
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fh != null" >
+        fh,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="criminalId != null" >
+        criminal_id,
+      </if>
+      <if test="prisonTime != null" >
+        prison_time,
+      </if>
+      <if test="fshrg != null" >
+        fshrg,
+      </if>
+      <if test="fshrgjb != null" >
+        fshrgjb,
+      </if>
+      <if test="pzxrg != null" >
+        pzxrg,
+      </if>
+      <if test="pzxrgjb != null" >
+        pzxrgjb,
+      </if>
+      <if test="cdxrg != null" >
+        cdxrg,
+      </if>
+      <if test="cdxrgjb != null" >
+        cdxrgjb,
+      </if>
+      <if test="byxrg != null" >
+        byxrg,
+      </if>
+      <if test="byxrgjb != null" >
+        byxrgjb,
+      </if>
+      <if test="yy != null" >
+        yy,
+      </if>
+      <if test="yyjb != null" >
+        yyjb,
+      </if>
+      <if test="zk != null" >
+        zk,
+      </if>
+      <if test="zkjb != null" >
+        zkjb,
+      </if>
+      <if test="sjz != null" >
+        sjz,
+      </if>
+      <if test="sjzjb != null" >
+        sjzjb,
+      </if>
+      <if test="jsbx != null" >
+        jsbx,
+      </if>
+      <if test="jsbxjb != null" >
+        jsbxjb,
+      </if>
+      <if test="shlb != null" >
+        shlb,
+      </if>
+      <if test="shlbjb != null" >
+        shlbjb,
+      </if>
+      <if test="pgrq != null" >
+        pgrq,
+      </if>
+      <if test="pghs != null" >
+        pghs,
+      </if>
+      <if test="jybh != null" >
+        jybh,
+      </if>
+      <if test="jymc != null" >
+        jymc,
+      </if>
+      <if test="jqbh != null" >
+        jqbh,
+      </if>
+      <if test="jqmc != null" >
+        jqmc,
+      </if>
+      <if test="fjqbh != null" >
+        fjqbh,
+      </if>
+      <if test="fjqmc != null" >
+        fjqmc,
+      </if>
+      <if test="jsbxHj != null" >
+        jsbx_hj,
+      </if>
+      <if test="jsbxWx != null" >
+        jsbx_wx,
+      </if>
+      <if test="jsbxQxza != null" >
+        jsbx_qxza,
+      </if>
+      <if test="jsbxRzza != null" >
+        jsbx_rzza,
+      </if>
+      <if test="jsbxJzzhz != null" >
+        jsbx_jzzhz,
+      </if>
+      <if test="blfs != null" >
+        blfs,
+      </if>
+      <if test="bldj != null" >
+        bldj,
+      </if>
+      <if test="ttfs != null" >
+        ttfs,
+      </if>
+      <if test="ttdj != null" >
+        ttdj,
+      </if>
+      <if test="zsfs != null" >
+        zsfs,
+      </if>
+      <if test="zsdj != null" >
+        zsdj,
+      </if>
+      <if test="jsbl != null" >
+        jsbl,
+      </if>
+      <if test="jstt != null" >
+        jstt,
+      </if>
+      <if test="jszs != null" >
+        jszs,
+      </if>
+      <if test="createName != null" >
+        create_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateName != null" >
+        update_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fh != null" >
+        #{fh,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="criminalId != null" >
+        #{criminalId,jdbcType=INTEGER},
+      </if>
+      <if test="prisonTime != null" >
+        #{prisonTime,jdbcType=DATE},
+      </if>
+      <if test="fshrg != null" >
+        #{fshrg,jdbcType=INTEGER},
+      </if>
+      <if test="fshrgjb != null" >
+        #{fshrgjb,jdbcType=VARCHAR},
+      </if>
+      <if test="pzxrg != null" >
+        #{pzxrg,jdbcType=INTEGER},
+      </if>
+      <if test="pzxrgjb != null" >
+        #{pzxrgjb,jdbcType=VARCHAR},
+      </if>
+      <if test="cdxrg != null" >
+        #{cdxrg,jdbcType=INTEGER},
+      </if>
+      <if test="cdxrgjb != null" >
+        #{cdxrgjb,jdbcType=VARCHAR},
+      </if>
+      <if test="byxrg != null" >
+        #{byxrg,jdbcType=INTEGER},
+      </if>
+      <if test="byxrgjb != null" >
+        #{byxrgjb,jdbcType=VARCHAR},
+      </if>
+      <if test="yy != null" >
+        #{yy,jdbcType=INTEGER},
+      </if>
+      <if test="yyjb != null" >
+        #{yyjb,jdbcType=VARCHAR},
+      </if>
+      <if test="zk != null" >
+        #{zk,jdbcType=INTEGER},
+      </if>
+      <if test="zkjb != null" >
+        #{zkjb,jdbcType=VARCHAR},
+      </if>
+      <if test="sjz != null" >
+        #{sjz,jdbcType=INTEGER},
+      </if>
+      <if test="sjzjb != null" >
+        #{sjzjb,jdbcType=VARCHAR},
+      </if>
+      <if test="jsbx != null" >
+        #{jsbx,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxjb != null" >
+        #{jsbxjb,jdbcType=VARCHAR},
+      </if>
+      <if test="shlb != null" >
+        #{shlb,jdbcType=INTEGER},
+      </if>
+      <if test="shlbjb != null" >
+        #{shlbjb,jdbcType=VARCHAR},
+      </if>
+      <if test="pgrq != null" >
+        #{pgrq,jdbcType=DATE},
+      </if>
+      <if test="pghs != null" >
+        #{pghs,jdbcType=INTEGER},
+      </if>
+      <if test="jybh != null" >
+        #{jybh,jdbcType=VARCHAR},
+      </if>
+      <if test="jymc != null" >
+        #{jymc,jdbcType=VARCHAR},
+      </if>
+      <if test="jqbh != null" >
+        #{jqbh,jdbcType=VARCHAR},
+      </if>
+      <if test="jqmc != null" >
+        #{jqmc,jdbcType=VARCHAR},
+      </if>
+      <if test="fjqbh != null" >
+        #{fjqbh,jdbcType=VARCHAR},
+      </if>
+      <if test="fjqmc != null" >
+        #{fjqmc,jdbcType=VARCHAR},
+      </if>
+      <if test="jsbxHj != null" >
+        #{jsbxHj,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxWx != null" >
+        #{jsbxWx,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxQxza != null" >
+        #{jsbxQxza,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxRzza != null" >
+        #{jsbxRzza,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxJzzhz != null" >
+        #{jsbxJzzhz,jdbcType=INTEGER},
+      </if>
+      <if test="blfs != null" >
+        #{blfs,jdbcType=DECIMAL},
+      </if>
+      <if test="bldj != null" >
+        #{bldj,jdbcType=VARCHAR},
+      </if>
+      <if test="ttfs != null" >
+        #{ttfs,jdbcType=DECIMAL},
+      </if>
+      <if test="ttdj != null" >
+        #{ttdj,jdbcType=VARCHAR},
+      </if>
+      <if test="zsfs != null" >
+        #{zsfs,jdbcType=DECIMAL},
+      </if>
+      <if test="zsdj != null" >
+        #{zsdj,jdbcType=VARCHAR},
+      </if>
+      <if test="jsbl != null" >
+        #{jsbl,jdbcType=DECIMAL},
+      </if>
+      <if test="jstt != null" >
+        #{jstt,jdbcType=DECIMAL},
+      </if>
+      <if test="jszs != null" >
+        #{jszs,jdbcType=DECIMAL},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.dangerous.report.domain.Individuality" >
+    update individuality
+    <set >
+      <if test="fh != null" >
+        fh = #{fh,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="criminalId != null" >
+        criminal_id = #{criminalId,jdbcType=INTEGER},
+      </if>
+      <if test="prisonTime != null" >
+        prison_time = #{prisonTime,jdbcType=DATE},
+      </if>
+      <if test="fshrg != null" >
+        fshrg = #{fshrg,jdbcType=INTEGER},
+      </if>
+      <if test="fshrgjb != null" >
+        fshrgjb = #{fshrgjb,jdbcType=VARCHAR},
+      </if>
+      <if test="pzxrg != null" >
+        pzxrg = #{pzxrg,jdbcType=INTEGER},
+      </if>
+      <if test="pzxrgjb != null" >
+        pzxrgjb = #{pzxrgjb,jdbcType=VARCHAR},
+      </if>
+      <if test="cdxrg != null" >
+        cdxrg = #{cdxrg,jdbcType=INTEGER},
+      </if>
+      <if test="cdxrgjb != null" >
+        cdxrgjb = #{cdxrgjb,jdbcType=VARCHAR},
+      </if>
+      <if test="byxrg != null" >
+        byxrg = #{byxrg,jdbcType=INTEGER},
+      </if>
+      <if test="byxrgjb != null" >
+        byxrgjb = #{byxrgjb,jdbcType=VARCHAR},
+      </if>
+      <if test="yy != null" >
+        yy = #{yy,jdbcType=INTEGER},
+      </if>
+      <if test="yyjb != null" >
+        yyjb = #{yyjb,jdbcType=VARCHAR},
+      </if>
+      <if test="zk != null" >
+        zk = #{zk,jdbcType=INTEGER},
+      </if>
+      <if test="zkjb != null" >
+        zkjb = #{zkjb,jdbcType=VARCHAR},
+      </if>
+      <if test="sjz != null" >
+        sjz = #{sjz,jdbcType=INTEGER},
+      </if>
+      <if test="sjzjb != null" >
+        sjzjb = #{sjzjb,jdbcType=VARCHAR},
+      </if>
+      <if test="jsbx != null" >
+        jsbx = #{jsbx,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxjb != null" >
+        jsbxjb = #{jsbxjb,jdbcType=VARCHAR},
+      </if>
+      <if test="shlb != null" >
+        shlb = #{shlb,jdbcType=INTEGER},
+      </if>
+      <if test="shlbjb != null" >
+        shlbjb = #{shlbjb,jdbcType=VARCHAR},
+      </if>
+      <if test="pgrq != null" >
+        pgrq = #{pgrq,jdbcType=DATE},
+      </if>
+      <if test="pghs != null" >
+        pghs = #{pghs,jdbcType=INTEGER},
+      </if>
+      <if test="jybh != null" >
+        jybh = #{jybh,jdbcType=VARCHAR},
+      </if>
+      <if test="jymc != null" >
+        jymc = #{jymc,jdbcType=VARCHAR},
+      </if>
+      <if test="jqbh != null" >
+        jqbh = #{jqbh,jdbcType=VARCHAR},
+      </if>
+      <if test="jqmc != null" >
+        jqmc = #{jqmc,jdbcType=VARCHAR},
+      </if>
+      <if test="fjqbh != null" >
+        fjqbh = #{fjqbh,jdbcType=VARCHAR},
+      </if>
+      <if test="fjqmc != null" >
+        fjqmc = #{fjqmc,jdbcType=VARCHAR},
+      </if>
+      <if test="jsbxHj != null" >
+        jsbx_hj = #{jsbxHj,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxWx != null" >
+        jsbx_wx = #{jsbxWx,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxQxza != null" >
+        jsbx_qxza = #{jsbxQxza,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxRzza != null" >
+        jsbx_rzza = #{jsbxRzza,jdbcType=INTEGER},
+      </if>
+      <if test="jsbxJzzhz != null" >
+        jsbx_jzzhz = #{jsbxJzzhz,jdbcType=INTEGER},
+      </if>
+      <if test="blfs != null" >
+        blfs = #{blfs,jdbcType=DECIMAL},
+      </if>
+      <if test="bldj != null" >
+        bldj = #{bldj,jdbcType=VARCHAR},
+      </if>
+      <if test="ttfs != null" >
+        ttfs = #{ttfs,jdbcType=DECIMAL},
+      </if>
+      <if test="ttdj != null" >
+        ttdj = #{ttdj,jdbcType=VARCHAR},
+      </if>
+      <if test="zsfs != null" >
+        zsfs = #{zsfs,jdbcType=DECIMAL},
+      </if>
+      <if test="zsdj != null" >
+        zsdj = #{zsdj,jdbcType=VARCHAR},
+      </if>
+      <if test="jsbl != null" >
+        jsbl = #{jsbl,jdbcType=DECIMAL},
+      </if>
+      <if test="jstt != null" >
+        jstt = #{jstt,jdbcType=DECIMAL},
+      </if>
+      <if test="jszs != null" >
+        jszs = #{jszs,jdbcType=DECIMAL},
+      </if>
+      <if test="createName != null" >
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateName != null" >
+        update_name = #{updateName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.dangerous.report.domain.Individuality" >
+    update individuality
+    set fh = #{fh,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      criminal_id = #{criminalId,jdbcType=INTEGER},
+      prison_time = #{prisonTime,jdbcType=DATE},
+      fshrg = #{fshrg,jdbcType=INTEGER},
+      fshrgjb = #{fshrgjb,jdbcType=VARCHAR},
+      pzxrg = #{pzxrg,jdbcType=INTEGER},
+      pzxrgjb = #{pzxrgjb,jdbcType=VARCHAR},
+      cdxrg = #{cdxrg,jdbcType=INTEGER},
+      cdxrgjb = #{cdxrgjb,jdbcType=VARCHAR},
+      byxrg = #{byxrg,jdbcType=INTEGER},
+      byxrgjb = #{byxrgjb,jdbcType=VARCHAR},
+      yy = #{yy,jdbcType=INTEGER},
+      yyjb = #{yyjb,jdbcType=VARCHAR},
+      zk = #{zk,jdbcType=INTEGER},
+      zkjb = #{zkjb,jdbcType=VARCHAR},
+      sjz = #{sjz,jdbcType=INTEGER},
+      sjzjb = #{sjzjb,jdbcType=VARCHAR},
+      jsbx = #{jsbx,jdbcType=INTEGER},
+      jsbxjb = #{jsbxjb,jdbcType=VARCHAR},
+      shlb = #{shlb,jdbcType=INTEGER},
+      shlbjb = #{shlbjb,jdbcType=VARCHAR},
+      pgrq = #{pgrq,jdbcType=DATE},
+      pghs = #{pghs,jdbcType=INTEGER},
+      jybh = #{jybh,jdbcType=VARCHAR},
+      jymc = #{jymc,jdbcType=VARCHAR},
+      jqbh = #{jqbh,jdbcType=VARCHAR},
+      jqmc = #{jqmc,jdbcType=VARCHAR},
+      fjqbh = #{fjqbh,jdbcType=VARCHAR},
+      fjqmc = #{fjqmc,jdbcType=VARCHAR},
+      jsbx_hj = #{jsbxHj,jdbcType=INTEGER},
+      jsbx_wx = #{jsbxWx,jdbcType=INTEGER},
+      jsbx_qxza = #{jsbxQxza,jdbcType=INTEGER},
+      jsbx_rzza = #{jsbxRzza,jdbcType=INTEGER},
+      jsbx_jzzhz = #{jsbxJzzhz,jdbcType=INTEGER},
+      blfs = #{blfs,jdbcType=DECIMAL},
+      bldj = #{bldj,jdbcType=VARCHAR},
+      ttfs = #{ttfs,jdbcType=DECIMAL},
+      ttdj = #{ttdj,jdbcType=VARCHAR},
+      zsfs = #{zsfs,jdbcType=DECIMAL},
+      zsdj = #{zsdj,jdbcType=VARCHAR},
+      jsbl = #{jsbl,jdbcType=DECIMAL},
+      jstt = #{jstt,jdbcType=DECIMAL},
+      jszs = #{jszs,jdbcType=DECIMAL},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_name = #{updateName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

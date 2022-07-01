@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.wenjuan.dao.UserInfoDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.wenjuan.domain.UserInfoDetail" >
+    <id column="no" property="no" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="birthMonth" property="birthmonth" jdbcType="VARCHAR" />
+    <result column="ethnicity" property="ethnicity" jdbcType="VARCHAR" />
+    <result column="crime" property="crime" jdbcType="VARCHAR" />
+    <result column="imprison_date" property="imprisonDate" jdbcType="VARCHAR" />
+    <result column="imprison_begin_end" property="imprisonBeginEnd" jdbcType="VARCHAR" />
+    <result column="crime_info" property="crimeInfo" jdbcType="VARCHAR" />
+    <result column="crime_type" property="crimeType" jdbcType="VARCHAR" />
+    <result column="crime_history" property="crimeHistory" jdbcType="VARCHAR" />
+    <result column="economic_status" property="economicStatus" jdbcType="VARCHAR" />
+    <result column="belief" property="belief" jdbcType="VARCHAR" />
+    <result column="medical_history" property="medicalHistory" jdbcType="VARCHAR" />
+    <result column="health" property="health" jdbcType="VARCHAR" />
+    <result column="defect" property="defect" jdbcType="VARCHAR" />
+    <result column="rely" property="rely" jdbcType="VARCHAR" />
+    <result column="health_other" property="healthOther" jdbcType="VARCHAR" />
+    <result column="guilt" property="guilt" jdbcType="VARCHAR" />
+    <result column="growup_info" property="growupInfo" jdbcType="VARCHAR" />
+    <result column="drop_info" property="dropInfo" jdbcType="VARCHAR" />
+    <result column="parent_health" property="parentHealth" jdbcType="VARCHAR" />
+    <result column="brother_health" property="brotherHealth" jdbcType="VARCHAR" />
+    <result column="parent_beat" property="parentBeat" jdbcType="VARCHAR" />
+    <result column="work_experience" property="workExperience" jdbcType="VARCHAR" />
+    <result column="special_experience" property="specialExperience" jdbcType="VARCHAR" />
+    <result column="life_event_family" property="lifeEventFamily" jdbcType="VARCHAR" />
+    <result column="life_event_marital" property="lifeEventMarital" jdbcType="VARCHAR" />
+    <result column="life_event_work" property="lifeEventWork" jdbcType="VARCHAR" />
+    <result column="life_event_live" property="lifeEventLive" jdbcType="VARCHAR" />
+    <result column="life_event_economic" property="lifeEventEconomic" jdbcType="VARCHAR" />
+    <result column="life_event_social" property="lifeEventSocial" jdbcType="VARCHAR" />
+    <result column="transform_experience" property="transformExperience" jdbcType="VARCHAR" />
+    <result column="emotion_experience" property="emotionExperience" jdbcType="VARCHAR" />
+    <result column="marital_status" property="maritalStatus" jdbcType="VARCHAR" />
+    <result column="family_status" property="familyStatus" jdbcType="VARCHAR" />
+    <result column="social_status" property="socialStatus" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    <result column="remark6" property="remark6" jdbcType="VARCHAR" />
+    <result column="remark7" property="remark7" jdbcType="VARCHAR" />
+    <result column="remark8" property="remark8" jdbcType="VARCHAR" />
+    <result column="remark9" property="remark9" jdbcType="VARCHAR" />
+    <result column="remark10" property="remark10" jdbcType="VARCHAR" />
+    <result column="remark11" property="remark11" jdbcType="VARCHAR" />
+    <result column="remark12" property="remark12" jdbcType="VARCHAR" />
+    <result column="remark13" property="remark13" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    no, name, birthMonth, ethnicity, crime, imprison_date, imprison_begin_end, crime_info,
+    crime_type, crime_history, economic_status, belief, medical_history, health, defect,
+    rely, health_other, guilt, growup_info, drop_info, parent_health, brother_health,
+    parent_beat, work_experience, special_experience, life_event_family, life_event_marital,
+    life_event_work, life_event_live, life_event_economic, life_event_social, transform_experience,
+    emotion_experience, marital_status, family_status, social_status, create_time, update_time,
+    remark1,remark2,remark3,remark4,remark5,remark6,remark7,remark8,remark9,remark10,remark11,remark12,remark13
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_info_detail
+    where no = #{no,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_info_detail
+    where no = #{no,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.wenjuan.domain.UserInfoDetail" >
+    insert into user_info_detail (no, name, birthMonth,
+      ethnicity, crime, imprison_date,
+      imprison_begin_end, crime_info, crime_type,
+      crime_history, economic_status, belief,
+      medical_history, health, defect,
+      rely, health_other, guilt,
+      growup_info, drop_info, parent_health,
+      brother_health, parent_beat, work_experience,
+      special_experience, life_event_family, life_event_marital,
+      life_event_work, life_event_live, life_event_economic,
+      life_event_social, transform_experience, emotion_experience,
+      marital_status, family_status, social_status,
+      create_time, update_time,remark1,remark2,remark3,remark4,remark5,remark6,
+      remark7,remark8,remark9,remark10,remark11,remark12,remark13)
+    values (#{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{birthmonth,jdbcType=VARCHAR},
+      #{ethnicity,jdbcType=VARCHAR}, #{crime,jdbcType=VARCHAR}, #{imprisonDate,jdbcType=VARCHAR},
+      #{imprisonBeginEnd,jdbcType=VARCHAR}, #{crimeInfo,jdbcType=VARCHAR}, #{crimeType,jdbcType=VARCHAR},
+      #{crimeHistory,jdbcType=VARCHAR}, #{economicStatus,jdbcType=VARCHAR}, #{belief,jdbcType=VARCHAR},
+      #{medicalHistory,jdbcType=VARCHAR}, #{health,jdbcType=VARCHAR}, #{defect,jdbcType=VARCHAR},
+      #{rely,jdbcType=VARCHAR}, #{healthOther,jdbcType=VARCHAR}, #{guilt,jdbcType=VARCHAR},
+      #{growupInfo,jdbcType=VARCHAR}, #{dropInfo,jdbcType=VARCHAR}, #{parentHealth,jdbcType=VARCHAR},
+      #{brotherHealth,jdbcType=VARCHAR}, #{parentBeat,jdbcType=VARCHAR}, #{workExperience,jdbcType=VARCHAR},
+      #{specialExperience,jdbcType=VARCHAR}, #{lifeEventFamily,jdbcType=VARCHAR}, #{lifeEventMarital,jdbcType=VARCHAR},
+      #{lifeEventWork,jdbcType=VARCHAR}, #{lifeEventLive,jdbcType=VARCHAR}, #{lifeEventEconomic,jdbcType=VARCHAR},
+      #{lifeEventSocial,jdbcType=VARCHAR}, #{transformExperience,jdbcType=VARCHAR}, #{emotionExperience,jdbcType=VARCHAR},
+      #{maritalStatus,jdbcType=VARCHAR}, #{familyStatus,jdbcType=VARCHAR}, #{socialStatus,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR},
+       #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}, #{remark6,jdbcType=VARCHAR},
+       #{remark7,jdbcType=VARCHAR}, #{remark8,jdbcType=VARCHAR}, #{remark9,jdbcType=VARCHAR}, #{remark10,jdbcType=VARCHAR},
+       #{remark11,jdbcType=VARCHAR}, #{remark12,jdbcType=VARCHAR}, #{remark13,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.wenjuan.domain.UserInfoDetail" >
+    insert into user_info_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="birthmonth != null" >
+        birthMonth,
+      </if>
+      <if test="ethnicity != null" >
+        ethnicity,
+      </if>
+      <if test="crime != null" >
+        crime,
+      </if>
+      <if test="imprisonDate != null" >
+        imprison_date,
+      </if>
+      <if test="imprisonBeginEnd != null" >
+        imprison_begin_end,
+      </if>
+      <if test="crimeInfo != null" >
+        crime_info,
+      </if>
+      <if test="crimeType != null" >
+        crime_type,
+      </if>
+      <if test="crimeHistory != null" >
+        crime_history,
+      </if>
+      <if test="economicStatus != null" >
+        economic_status,
+      </if>
+      <if test="belief != null" >
+        belief,
+      </if>
+      <if test="medicalHistory != null" >
+        medical_history,
+      </if>
+      <if test="health != null" >
+        health,
+      </if>
+      <if test="defect != null" >
+        defect,
+      </if>
+      <if test="rely != null" >
+        rely,
+      </if>
+      <if test="healthOther != null" >
+        health_other,
+      </if>
+      <if test="guilt != null" >
+        guilt,
+      </if>
+      <if test="growupInfo != null" >
+        growup_info,
+      </if>
+      <if test="dropInfo != null" >
+        drop_info,
+      </if>
+      <if test="parentHealth != null" >
+        parent_health,
+      </if>
+      <if test="brotherHealth != null" >
+        brother_health,
+      </if>
+      <if test="parentBeat != null" >
+        parent_beat,
+      </if>
+      <if test="workExperience != null" >
+        work_experience,
+      </if>
+      <if test="specialExperience != null" >
+        special_experience,
+      </if>
+      <if test="lifeEventFamily != null" >
+        life_event_family,
+      </if>
+      <if test="lifeEventMarital != null" >
+        life_event_marital,
+      </if>
+      <if test="lifeEventWork != null" >
+        life_event_work,
+      </if>
+      <if test="lifeEventLive != null" >
+        life_event_live,
+      </if>
+      <if test="lifeEventEconomic != null" >
+        life_event_economic,
+      </if>
+      <if test="lifeEventSocial != null" >
+        life_event_social,
+      </if>
+      <if test="transformExperience != null" >
+        transform_experience,
+      </if>
+      <if test="emotionExperience != null" >
+        emotion_experience,
+      </if>
+      <if test="maritalStatus != null" >
+        marital_status,
+      </if>
+      <if test="familyStatus != null" >
+        family_status,
+      </if>
+      <if test="socialStatus != null" >
+        social_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+      <if test="remark6 != null" >
+        remark6,
+      </if>
+      <if test="remark7 != null" >
+        remark7,
+      </if>
+      <if test="remark8 != null" >
+        remark8,
+      </if>
+      <if test="remark9 != null" >
+        remark9,
+      </if>
+      <if test="remark10 != null" >
+        remark10,
+      </if>
+      <if test="remark11 != null" >
+        remark11,
+      </if>
+      <if test="remark12 != null" >
+        remark12,
+      </if>
+      <if test="remark13 != null" >
+        remark13,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="no != null" >
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthmonth != null" >
+        #{birthmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="ethnicity != null" >
+        #{ethnicity,jdbcType=VARCHAR},
+      </if>
+      <if test="crime != null" >
+        #{crime,jdbcType=VARCHAR},
+      </if>
+      <if test="imprisonDate != null" >
+        #{imprisonDate,jdbcType=VARCHAR},
+      </if>
+      <if test="imprisonBeginEnd != null" >
+        #{imprisonBeginEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="crimeInfo != null" >
+        #{crimeInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="crimeType != null" >
+        #{crimeType,jdbcType=VARCHAR},
+      </if>
+      <if test="crimeHistory != null" >
+        #{crimeHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="economicStatus != null" >
+        #{economicStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="belief != null" >
+        #{belief,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalHistory != null" >
+        #{medicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="health != null" >
+        #{health,jdbcType=VARCHAR},
+      </if>
+      <if test="defect != null" >
+        #{defect,jdbcType=VARCHAR},
+      </if>
+      <if test="rely != null" >
+        #{rely,jdbcType=VARCHAR},
+      </if>
+      <if test="healthOther != null" >
+        #{healthOther,jdbcType=VARCHAR},
+      </if>
+      <if test="guilt != null" >
+        #{guilt,jdbcType=VARCHAR},
+      </if>
+      <if test="growupInfo != null" >
+        #{growupInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="dropInfo != null" >
+        #{dropInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="parentHealth != null" >
+        #{parentHealth,jdbcType=VARCHAR},
+      </if>
+      <if test="brotherHealth != null" >
+        #{brotherHealth,jdbcType=VARCHAR},
+      </if>
+      <if test="parentBeat != null" >
+        #{parentBeat,jdbcType=VARCHAR},
+      </if>
+      <if test="workExperience != null" >
+        #{workExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="specialExperience != null" >
+        #{specialExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventFamily != null" >
+        #{lifeEventFamily,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventMarital != null" >
+        #{lifeEventMarital,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventWork != null" >
+        #{lifeEventWork,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventLive != null" >
+        #{lifeEventLive,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventEconomic != null" >
+        #{lifeEventEconomic,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventSocial != null" >
+        #{lifeEventSocial,jdbcType=VARCHAR},
+      </if>
+      <if test="transformExperience != null" >
+        #{transformExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="emotionExperience != null" >
+        #{emotionExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="familyStatus != null" >
+        #{familyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="socialStatus != null" >
+        #{socialStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+      <if test="remark6 != null" >
+        #{remark6,jdbcType=VARCHAR},
+      </if>
+      <if test="remark7 != null" >
+        #{remark7,jdbcType=VARCHAR},
+      </if>
+      <if test="remark8 != null" >
+        #{remark8,jdbcType=VARCHAR},
+      </if>
+      <if test="remark9 != null" >
+        #{remark9,jdbcType=VARCHAR},
+      </if>
+      <if test="remark10 != null" >
+        #{remark10,jdbcType=VARCHAR},
+      </if>
+      <if test="remark11 != null" >
+        #{remark11,jdbcType=VARCHAR},
+      </if>
+      <if test="remark12 != null" >
+        #{remark12,jdbcType=VARCHAR},
+      </if>
+      <if test="remark13 != null" >
+        #{remark13,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.wenjuan.domain.UserInfoDetail" >
+    update user_info_detail
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthmonth != null" >
+        birthMonth = #{birthmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="ethnicity != null" >
+        ethnicity = #{ethnicity,jdbcType=VARCHAR},
+      </if>
+      <if test="crime != null" >
+        crime = #{crime,jdbcType=VARCHAR},
+      </if>
+      <if test="imprisonDate != null" >
+        imprison_date = #{imprisonDate,jdbcType=VARCHAR},
+      </if>
+      <if test="imprisonBeginEnd != null" >
+        imprison_begin_end = #{imprisonBeginEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="crimeInfo != null" >
+        crime_info = #{crimeInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="crimeType != null" >
+        crime_type = #{crimeType,jdbcType=VARCHAR},
+      </if>
+      <if test="crimeHistory != null" >
+        crime_history = #{crimeHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="economicStatus != null" >
+        economic_status = #{economicStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="belief != null" >
+        belief = #{belief,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalHistory != null" >
+        medical_history = #{medicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="health != null" >
+        health = #{health,jdbcType=VARCHAR},
+      </if>
+      <if test="defect != null" >
+        defect = #{defect,jdbcType=VARCHAR},
+      </if>
+      <if test="rely != null" >
+        rely = #{rely,jdbcType=VARCHAR},
+      </if>
+      <if test="healthOther != null" >
+        health_other = #{healthOther,jdbcType=VARCHAR},
+      </if>
+      <if test="guilt != null" >
+        guilt = #{guilt,jdbcType=VARCHAR},
+      </if>
+      <if test="growupInfo != null" >
+        growup_info = #{growupInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="dropInfo != null" >
+        drop_info = #{dropInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="parentHealth != null" >
+        parent_health = #{parentHealth,jdbcType=VARCHAR},
+      </if>
+      <if test="brotherHealth != null" >
+        brother_health = #{brotherHealth,jdbcType=VARCHAR},
+      </if>
+      <if test="parentBeat != null" >
+        parent_beat = #{parentBeat,jdbcType=VARCHAR},
+      </if>
+      <if test="workExperience != null" >
+        work_experience = #{workExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="specialExperience != null" >
+        special_experience = #{specialExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventFamily != null" >
+        life_event_family = #{lifeEventFamily,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventMarital != null" >
+        life_event_marital = #{lifeEventMarital,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventWork != null" >
+        life_event_work = #{lifeEventWork,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventLive != null" >
+        life_event_live = #{lifeEventLive,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventEconomic != null" >
+        life_event_economic = #{lifeEventEconomic,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeEventSocial != null" >
+        life_event_social = #{lifeEventSocial,jdbcType=VARCHAR},
+      </if>
+      <if test="transformExperience != null" >
+        transform_experience = #{transformExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="emotionExperience != null" >
+        emotion_experience = #{emotionExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        marital_status = #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="familyStatus != null" >
+        family_status = #{familyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="socialStatus != null" >
+        social_status = #{socialStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+      <if test="remark6 != null" >
+        #{remark6,jdbcType=VARCHAR},
+      </if>
+      <if test="remark7 != null" >
+        #{remark7,jdbcType=VARCHAR},
+      </if>
+      <if test="remark8 != null" >
+        #{remark8,jdbcType=VARCHAR},
+      </if>
+      <if test="remark9 != null" >
+        #{remark9,jdbcType=VARCHAR},
+      </if>
+      <if test="remark10 != null" >
+        #{remark10,jdbcType=VARCHAR},
+      </if>
+      <if test="remark11 != null" >
+        #{remark11,jdbcType=VARCHAR},
+      </if>
+      <if test="remark12 != null" >
+        #{remark12,jdbcType=VARCHAR},
+      </if>
+      <if test="remark13 != null" >
+        #{remark13,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where no = #{no,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.wenjuan.domain.UserInfoDetail" >
+    update user_info_detail
+    set name = #{name,jdbcType=VARCHAR},
+      birthMonth = #{birthmonth,jdbcType=VARCHAR},
+      ethnicity = #{ethnicity,jdbcType=VARCHAR},
+      crime = #{crime,jdbcType=VARCHAR},
+      imprison_date = #{imprisonDate,jdbcType=VARCHAR},
+      imprison_begin_end = #{imprisonBeginEnd,jdbcType=VARCHAR},
+      crime_info = #{crimeInfo,jdbcType=VARCHAR},
+      crime_type = #{crimeType,jdbcType=VARCHAR},
+      crime_history = #{crimeHistory,jdbcType=VARCHAR},
+      economic_status = #{economicStatus,jdbcType=VARCHAR},
+      belief = #{belief,jdbcType=VARCHAR},
+      medical_history = #{medicalHistory,jdbcType=VARCHAR},
+      health = #{health,jdbcType=VARCHAR},
+      defect = #{defect,jdbcType=VARCHAR},
+      rely = #{rely,jdbcType=VARCHAR},
+      health_other = #{healthOther,jdbcType=VARCHAR},
+      guilt = #{guilt,jdbcType=VARCHAR},
+      growup_info = #{growupInfo,jdbcType=VARCHAR},
+      drop_info = #{dropInfo,jdbcType=VARCHAR},
+      parent_health = #{parentHealth,jdbcType=VARCHAR},
+      brother_health = #{brotherHealth,jdbcType=VARCHAR},
+      parent_beat = #{parentBeat,jdbcType=VARCHAR},
+      work_experience = #{workExperience,jdbcType=VARCHAR},
+      special_experience = #{specialExperience,jdbcType=VARCHAR},
+      life_event_family = #{lifeEventFamily,jdbcType=VARCHAR},
+      life_event_marital = #{lifeEventMarital,jdbcType=VARCHAR},
+      life_event_work = #{lifeEventWork,jdbcType=VARCHAR},
+      life_event_live = #{lifeEventLive,jdbcType=VARCHAR},
+      life_event_economic = #{lifeEventEconomic,jdbcType=VARCHAR},
+      life_event_social = #{lifeEventSocial,jdbcType=VARCHAR},
+      transform_experience = #{transformExperience,jdbcType=VARCHAR},
+      emotion_experience = #{emotionExperience,jdbcType=VARCHAR},
+      marital_status = #{maritalStatus,jdbcType=VARCHAR},
+      family_status = #{familyStatus,jdbcType=VARCHAR},
+      social_status = #{socialStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR},
+      remark6 = #{remark6,jdbcType=VARCHAR},
+      remark7 = #{remark7,jdbcType=VARCHAR},
+      remark8 = #{remark8,jdbcType=VARCHAR},
+      remark9 = #{remark9,jdbcType=VARCHAR},
+      remark10 = #{remark10,jdbcType=VARCHAR},
+      remark11 = #{remark11,jdbcType=VARCHAR},
+      remark12 = #{remark12,jdbcType=VARCHAR},
+      remark13 = #{remark13,jdbcType=VARCHAR}
+    where no = #{no,jdbcType=VARCHAR}
+  </update>
+</mapper>

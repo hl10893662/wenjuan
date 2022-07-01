@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.wenjuan.dao.UnitsMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.wenjuan.domain.Units" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="full_name" property="fullName" jdbcType="VARCHAR" />
+    <result column="prison_name" property="prisonName" jdbcType="VARCHAR" />
+    <result column="prison_full_name" property="prisonFullName" jdbcType="VARCHAR" />
+    <result column="prison_id" property="prisonId" jdbcType="INTEGER" />
+    <result column="jgxt_name" property="jgxtName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, type, path, pid, full_name, prison_name, prison_full_name, prison_id, jgxt_name,
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from units
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByPrisonId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from units
+    where id = #{prisonId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectBigGroupListByPrisonId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from units
+    where prison_id = #{prisonId,jdbcType=INTEGER}
+    and (type = '4' or type = '6')
+  </select>
+
+  <select id="selectGroupListByPrisonId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from units
+    where prison_id = #{prisonId,jdbcType=INTEGER}
+    and (type = '5' or type = '7')
+  </select>
+
+
+  <select id="selectGroupListByBigGroupId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from units
+    where pid = #{bigGroupId,jdbcType=INTEGER}
+    and (type = '5' or type = '7')
+  </select>
+
+
+  <select id="selectByPid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from units
+    where pid = #{pId,jdbcType=INTEGER}
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from units
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.wenjuan.domain.Units" >
+    insert into units (id, name, type,
+      path, pid, full_name,
+      prison_name, prison_full_name, prison_id,
+      jgxt_name, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+      #{path,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{fullName,jdbcType=VARCHAR},
+      #{prisonName,jdbcType=VARCHAR}, #{prisonFullName,jdbcType=VARCHAR}, #{prisonId,jdbcType=VARCHAR},
+      #{jgxtName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.wenjuan.domain.Units" >
+    insert into units
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="fullName != null" >
+        full_name,
+      </if>
+      <if test="prisonName != null" >
+        prison_name,
+      </if>
+      <if test="prisonFullName != null" >
+        prison_full_name,
+      </if>
+      <if test="prisonId != null" >
+        prison_id,
+      </if>
+      <if test="jgxtName != null" >
+        jgxt_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="prisonName != null" >
+        #{prisonName,jdbcType=VARCHAR},
+      </if>
+      <if test="prisonFullName != null" >
+        #{prisonFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="prisonId != null" >
+        #{prisonId,jdbcType=VARCHAR},
+      </if>
+      <if test="jgxtName != null" >
+        #{jgxtName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.wenjuan.domain.Units" >
+    update units
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="fullName != null" >
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="prisonName != null" >
+        prison_name = #{prisonName,jdbcType=VARCHAR},
+      </if>
+      <if test="prisonFullName != null" >
+        prison_full_name = #{prisonFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="prisonId != null" >
+        prison_id = #{prisonId,jdbcType=VARCHAR},
+      </if>
+      <if test="jgxtName != null" >
+        jgxt_name = #{jgxtName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.wenjuan.domain.Units" >
+    update units
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      prison_name = #{prisonName,jdbcType=VARCHAR},
+      prison_full_name = #{prisonFullName,jdbcType=VARCHAR},
+      prison_id = #{prisonId,jdbcType=VARCHAR},
+      jgxt_name = #{jgxtName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
