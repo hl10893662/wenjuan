@@ -1,7 +1,6 @@
 package com.eno.baozi.wenjuan.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class QuestionResultDesc implements Serializable {
 
@@ -9,7 +8,17 @@ public class QuestionResultDesc implements Serializable {
     double score;
     String desc;
     String suggest;
+    String level;
 
+    String scoreAndLevel;
+
+    public String getScoreAndLevel() {
+        return scoreAndLevel;
+    }
+
+    public void setScoreAndLevel(String scoreAndLevel) {
+        this.scoreAndLevel = scoreAndLevel;
+    }
 
     public String getDesc() {
         return desc;
@@ -42,5 +51,13 @@ public class QuestionResultDesc implements Serializable {
 
     public void setSuggest(String suggest) {
         this.suggest = suggest;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

@@ -1,10 +1,11 @@
 package com.eno.baozi.dangerous.report.mapper;
 
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.eno.baozi.dangerous.report.domain.Individuality;
 
 import java.util.List;
-
+@DS("individual")
 public interface IndividualityMapper {
     int deleteByPrimaryKey(Integer id);
 

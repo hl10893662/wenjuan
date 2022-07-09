@@ -57,6 +57,7 @@ public class FaceProblem {
         DecimalFormat df = new DecimalFormat("#.##");
         questionResultDesc.setScore(Double.parseDouble(df.format(score*1.00/group.length)));
         questionResultDesc.setTypeName(titleMap.get(subName));
+        questionResultDesc.setScoreAndLevel(Double.parseDouble(df.format(score*1.00/group.length))+"");
         questionResultDesc.setDesc(score + "分");
         return questionResultDesc;
     }

@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,9 @@ public class ReportController {
 
     @Autowired
     IUserService userService;
+
+    @Value("${dangerous.report.path}")
+    String dangerousReportPath;
 
 
 
@@ -74,6 +78,16 @@ public class ReportController {
 //        pageResponse.setContent(list);
 //        dto.setData(pageResponse);
         dto.setData(reportService.queryUserByPage(pageRequest));
+        return dto;
+    }
+
+    @ApiOperation(value = "queryDangerousReportPath", notes = "获取")
+    @PostMapping("/report/queryDangerousReportPath")
+    @ResponseBody
+    public ResponseDTO<String> queryDangerousReportPath(@RequestHeader("X-Token") String token){
+        ResponseDTO dto = new ResponseDTO();
+        dto.setData(dangerousReportPath);
+        dto.setCode(20000);
         return dto;
     }
 

@@ -19,6 +19,8 @@ public class QuestionResultMain implements Serializable {
     LifeEventShow lifeEvent;
     PrisonShow prison;
 
+    public  String suggest;
+
     public String remark1;
     public String remark2;
     public String remark3;
@@ -33,6 +35,14 @@ public class QuestionResultMain implements Serializable {
     public String remark12;
     public String remark13;
 
+
+    public String getSuggest() {
+        return suggest;
+    }
+
+    public void setSuggest(String suggest) {
+        this.suggest = suggest;
+    }
 
     public String getRemark1() {
         return remark1;

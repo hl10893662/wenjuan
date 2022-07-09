@@ -91,13 +91,27 @@ public class Personality {
         return sub;
     }
 
+    public static Map<String,QuestionResultDesc>  calcIndividualScore(QuestionResult questionResult){
+        Map<String,QuestionResultDesc> questionResultDescMap = new HashMap<>();
+        for (int i = 1; i<=8; i++){
+            QuestionResultDesc questionResultDesc = getSubResultDesc(questionResult, "P" + i);
+            questionResultDescMap.put(i+"",questionResultDesc);
+        }
+
+        questionResultDescMap.put("L",calcLScore(questionResult));
+        return questionResultDescMap;
+    }
+
     private static QuestionResultDesc calcLScore(QuestionResult questionResult){
         QuestionResultDesc questionResultDesc = new QuestionResultDesc();
         int score = calcScore("L",questionResult);
         if (score< 10){
             questionResultDesc.setDesc(descMap.get("L").getLowDesc());
+            questionResultDesc.setLevel("低分");
         }else{
             questionResultDesc.setDesc(descMap.get("L").getHighDesc());
+            questionResultDesc.setLevel("高分");
+
         }
         questionResultDesc.setTypeName(titleMap.get("L"));
         questionResultDesc.setScore(score);
@@ -122,6 +136,7 @@ public class Personality {
         int score = calcScore(subName,questionResult);
         questionResultDesc.setTypeName(titleMap.get(subName));
         questionResultDesc.setDesc(descMap.get(subName).getDescByScore(score));
+        questionResultDesc.setLevel(descMap.get(subName).getLevelByScore(score));
         questionResultDesc.setScore(score);
         return questionResultDesc;
     }

@@ -14,6 +14,7 @@ import com.eno.baozi.wenjuan.domain.basic.*;
 import com.eno.baozi.wenjuan.questionslove.copa.COPA;
 import com.eno.baozi.wenjuan.questionslove.faceproblem.FaceProblem;
 import com.eno.baozi.wenjuan.questionslove.personality.Personality;
+import com.eno.baozi.wenjuan.service.IIndividualityService;
 import com.eno.baozi.wenjuan.service.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -42,6 +43,9 @@ public class QuestionServiceImpl implements IQuestionService {
     @Resource
     UserInfoTemplateMapper userInfoTemplateMapper;
 
+    @Resource
+    IIndividualityService individualityService;
+
 
     @Override
     public void saveQuestionResult(QuestionResultDTO questionResultDTO) throws BusinessException {
@@ -64,15 +68,43 @@ public class QuestionServiceImpl implements IQuestionService {
         questionResult.setCriminalId(questionResultDTO.getCirminalNo());
         questionResult.setCreateTime(new Date());
         questionResultMapper.insert(questionResult);
+        //写入危评，临时处理
+        if ( "3".equals(questionResultDTO.getQuestionNo())){
+            CriminalInfo criminalInfo = new CriminalInfo();
+            criminalInfo.setNo(criminalNo);
+            criminalInfo.setName(userInfo.getName());
+            buildReportByQuestionNo(criminalInfo,"1");
+
+            individualityService.saveIndividuality(userInfo,questionResult);
+        }
+
     }
 
     @Override
     public QuestionResultMain queryReport(CriminalInfo criminalInfo) {
         QuestionResultMain  main = new QuestionResultMain();
+        String suggest = "";
+        int suggestIndex = 1;
         for (int i = 1; i<=3; i ++){
-            QuestionResultSub  sub = new QuestionResultSub();
-                    main.addQuestionResultDesc("Q"+i,buildReportByQuestionNo(criminalInfo,i+""));
+            QuestionResultSub  sub = buildReportByQuestionNo(criminalInfo,i+"");
+            main.addQuestionResultDesc("Q"+i,sub);
+            //对于copa
+            if (sub != null && sub.getQuestionResultDescList() != null){
+                for (QuestionResultDesc  desc:sub.getQuestionResultDescList()){
+                    if (desc != null){
+                        if (!StringUtils.isEmpty(desc.getSuggest())){
+                            suggest+=suggestIndex+"、";
+                            suggest += desc.getSuggest();
+                            suggest += "\n";
+                            suggestIndex++;
+                        }
+
+                    }
+                }
+            }
+
         }
+        main.setSuggest(suggest);
         UserInfo userInfo = userInfoMapper.selectByPrimaryKey(criminalInfo.getNo());
         UserInfoDetail userInfoDetail = userInfoDetailMapper.selectByPrimaryKey(criminalInfo.getNo());
 

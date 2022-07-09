@@ -48,13 +48,13 @@ public class Individuality {
     private Integer sjz;
     @ApiModelProperty(value = "神经质")
     private String sjzjb;
-    @ApiModelProperty(value = "精神病性")
+    @ApiModelProperty(value = "精神病性级")
     private Integer jsbx;
     @ApiModelProperty(value = "精神病性")
     private String jsbxjb;
     @ApiModelProperty(value = "说谎量表")
     private Integer shlb;
-    @ApiModelProperty(value = "说谎量表")
+    @ApiModelProperty(value = "说谎量表级别")
     private String shlbjb;
     @ApiModelProperty(value = "评估日期")
     private Date pgrq;

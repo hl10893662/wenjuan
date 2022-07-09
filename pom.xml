@@ -113,6 +113,12 @@
 <!--            <version>8.7.0</version>-->
 <!--        </dependency>-->
 
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

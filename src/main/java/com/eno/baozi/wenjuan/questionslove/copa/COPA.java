@@ -120,65 +120,128 @@ public class COPA {
                 "",
                 "回答不认真，建议作废。"));
 
+//        suggestMap.put("P1",new COPAScoreSuggest(
+//                "加强交流与沟通，平时要注意观察和了解，一旦遭受刺激或挫折，要及时对其进行心理疏导和宣泄，鼓励多参加集体社交活动。",
+//                "","注意正确利用人缘好与交际能力强的特点。"
+//                ));
+//
+//        suggestMap.put("P2",new COPAScoreSuggest(
+//                "不太胜任较复杂、应变能力要求较高的任务。","","注意正确利用聪明、善于应变的特点。"
+//                ));
+//        suggestMap.put("P3",new COPAScoreSuggest(
+//                "一旦发生事件，后果可能很严重。注意培养同情心和爱心，增强责任感。",
+//                "",
+//                "注意发挥同情心和责任心强的特点，适合情感教育。"
+//                ));
+//        suggestMap.put("P4",new COPAScoreSuggest(
+//                "可能是非正规团体的首领或意外事件的实施者，注意预防监控。比较固执己见，改造难度较大。",
+//                "",
+//                "容易受亚文化的影响或左右，多注意开展正面的引导和教育。"
+//                ));
+//        suggestMap.put("P5",new COPAScoreSuggest(
+//                "注意正确利用沉稳的特点。",
+//                "",
+//                "注意防止因情绪波动易变而可能带来的不良后果。"
+//                ));
+//        suggestMap.put("P6",new COPAScoreSuggest(
+//                "注意正确利用理智、细致的优点。",
+//                "",
+//                "注意防止因冲动鲁莽、考虑不周而可能带来的不良后果。"
+//                ));
+//        suggestMap.put("P7",new COPAScoreSuggest(
+//                "注意正确利用坦诚幼稚、城府不深的特点。",
+//                "",
+//                "外在行为表现可能与内心真实想法不一致，城府较深，应多加留心和提防。"
+//                ));
+//        suggestMap.put("P8",new COPAScoreSuggest(
+//                "注意正确利用自信心强的特点。",
+//                "",
+//                "平时多采取鼓励的方式，注意提防因过于自卑而可能带来的不良后果。"
+//                ));
+//        suggestMap.put("P9",new COPAScoreSuggest(
+//                "",
+//                "",
+//                "注意提防因过于焦虑而可能带来的自伤、自杀等不良后果，进行适当的心理干预。"
+//                ));
+//        suggestMap.put("P10",new COPAScoreSuggest(
+//                "",
+//                "",
+//                "可能具有较高的人身危险性，尤其在面临冲突事件或存在潜在隐患时，加强预防监控与矫正力度。"
+//                ));
+//        suggestMap.put("P11",new COPAScoreSuggest(
+//                "",
+//                "",
+//                "作进一步的心理诊断，注意提防因变态心理而可能带来的不良后果，进行适当的心理干预。"
+//                ));
+//        suggestMap.put("P12",new COPAScoreSuggest(
+//                "",
+//                "",
+//                "可能具有较深的主观恶性和反社会意识，加强预防监控和矫正力度。"
+//                ));
+
+
         suggestMap.put("P1",new COPAScoreSuggest(
-                "加强交流与沟通，平时要注意观察和了解，一旦遭受刺激或挫折，要及时对其进行心理疏导和宣泄，鼓励多参加集体社交活动。",
-                "","注意正确利用人缘好与交际能力强的特点。"
-                ));
+                "该犯较内向，建议对其加强交流与沟通，平时要注意观察和了解，一旦遭受刺激或挫折，要及时对其进行心理疏导和宣泄，鼓励多参加集体社交活动，可安排改造表现好的老犯或老乡同他交流，培养其主动与警官、同改交流的习惯。",
+                "",
+                "该犯较为外向，注意正确利用该犯比较外向、合群的特点，多安排其参加集体活动，使其更快得适应监狱环境。"
+        ));
 
         suggestMap.put("P2",new COPAScoreSuggest(
-                "不太胜任较复杂、应变能力要求较高的任务。","","注意正确利用聪明、善于应变的特点。"
-                ));
+                "该犯自认为自己迟钝，不太胜任较复杂、应变能力要求较高的任务，建议对其观察，如若果真较迟钝，建议民警应耐心引导，同时对其加强劳动技能培训，在生产任务安排上循序渐进，不可操之过急。",
+                "",
+                "该犯自认为比较聪明，思维灵活，学习能力强，注意正确利用其聪明、善于应变的特点，给予其较复杂的任务，提升其能力，增强其自我效能感。"
+
+        ));
         suggestMap.put("P3",new COPAScoreSuggest(
-                "一旦发生事件，后果可能很严重。注意培养同情心和爱心，增强责任感。",
+                "鉴于该犯测试中显示同情心较差，可能不轻易被感动，建议对其进行人文教育，引导其学会站在他人的角度，理解他人，同情他人，关心别人，对其日常看似微不足道的爱心言行，要及时给予鼓励和表扬。。",
                 "",
                 "注意发挥同情心和责任心强的特点，适合情感教育。"
-                ));
+        ));
         suggestMap.put("P4",new COPAScoreSuggest(
-                "可能是非正规团体的首领或意外事件的实施者，注意预防监控。比较固执己见，改造难度较大。",
+                "该犯戒备心可能较强，对民警和他人不大信任，外在行为表现可能与内心真实想法可能不一致，对其在留心和提防的同时，应多与其沟通交流，满足其合理要求,使其感受到民警的人文关怀，多安排其参加团体互助类活动，培养其对他人的信任感，从而消除其戒备心理。",
                 "",
-                "容易受亚文化的影响或左右，多注意开展正面的引导和教育。"
-                ));
+                "该犯从属性强，缺乏主见，容易受亚文化的影响或左右，应对其多注意开展正面的引导和教育，培养其独立思考的习惯，确定其遵纪守法的观念，以免被其他犯人错误的观点所误导。"
+        ));
         suggestMap.put("P5",new COPAScoreSuggest(
                 "注意正确利用沉稳的特点。",
                 "",
-                "注意防止因情绪波动易变而可能带来的不良后果。"
-                ));
+                "该犯情绪容易波动，面对困难时易受外界影响，往往急躁烦恼，难以平静，应对该犯加强沟通，引导其把苦恼倾诉，或者多安排其参加集体活动，使其负面情绪得以宣泄，同时教育其学会积极暗示，缓解心理压力，以防范其因情绪波动易变而可能带来的不良后果。"
+        ));
         suggestMap.put("P6",new COPAScoreSuggest(
                 "注意正确利用理智、细致的优点。",
                 "",
-                "注意防止因冲动鲁莽、考虑不周而可能带来的不良后果。"
-                ));
+                "鉴于该犯比较感情用事，冲动鲁莽，应引导该犯学会使用推迟愤怒、语言暗示、转移注意力、环境转换、描述自身感觉等方法来克制冲动，学会正确处理矛盾的方法，从而防范其该犯因冲动、考虑不周而可能带来的不良后果。"
+        ));
         suggestMap.put("P7",new COPAScoreSuggest(
-                "注意正确利用坦诚幼稚、城府不深的特点。",
+                "注意正确利用坦诚幼稚、城府不深、坦诚幼稚的特点。",
                 "",
-                "外在行为表现可能与内心真实想法不一致，城府较深，应多加留心和提防。"
-                ));
+                "该犯戒备心可能较强，对民警和他人不大信任，外在行为表现可能与内心真实想法可能不一致，对其在留心和提防的同时，应多与其沟通交流，满足其合理要求,使其感受到民警的人文关怀，多安排其参加团体互助类活动，培养其对他人的信任感，从而消除其戒备心理。 "
+        ));
         suggestMap.put("P8",new COPAScoreSuggest(
-                "注意正确利用自信心强的特点。",
+                "该犯对自己的能力较自信，注意正确激励，给予其较复杂的任务，提升其能力，增强其自我效能感。",
                 "",
-                "平时多采取鼓励的方式，注意提防因过于自卑而可能带来的不良后果。"
-                ));
+                "该犯自卑感较强，觉得自己比别人差，建议平时多采取鼓励的方式，通过优点分析、自我暗示等方法提高其自信心，注意提防其因过于自卑而逃避改造困难、自暴自弃。"
+        ));
         suggestMap.put("P9",new COPAScoreSuggest(
                 "",
                 "",
-                "注意提防因过于焦虑而可能带来的自伤、自杀等不良后果，进行适当的心理干预。"
-                ));
+                "该犯当下焦虑，对自己的将来或前途缺乏信心，应帮助其掌握精神放松的自我调节方法，识别可能存在的“糟糕至极”等错误认知方式，用他犯的类似经历或自身过去成功经历来打消其焦虑紧张心态，提防其因焦虑而可能带来的自伤自残、自杀等不良后果。"
+        ));
         suggestMap.put("P10",new COPAScoreSuggest(
                 "",
                 "",
-                "可能具有较高的人身危险性，尤其在面临冲突事件或存在潜在隐患时，加强预防监控与矫正力度。"
-                ));
+                "该犯暴力倾向较高，具有较高的人身危险性，应引导该犯学习忍耐及宽容，正确表达愤怒，在面临冲突事件或存在潜在隐患时，应加强预防监控与矫正力度，如果该犯因暴力发生违规行为，应及时地教育，明确地惩罚以矫正其以暴力解决问题的不良行为方式。"
+        ));
         suggestMap.put("P11",new COPAScoreSuggest(
                 "",
                 "",
                 "作进一步的心理诊断，注意提防因变态心理而可能带来的不良后果，进行适当的心理干预。"
-                ));
+        ));
         suggestMap.put("P12",new COPAScoreSuggest(
                 "",
                 "",
-                "可能具有较深的主观恶性和反社会意识，加强预防监控和矫正力度。"
-                ));
-
+                "该犯的心理测试显示其犯罪思维程度较严重，犯罪思维模式突出表现在以下大多数方面：惟利是图，自私自利，侥幸心理，胆大妄为，不择手段，虚假不诚，自律不严等，即该可能具有较高较深的主观恶性和反社会意识，应对其加强预防监控与矫正力度。"
+        ));
 
 
     }
@@ -197,6 +260,18 @@ public class COPA {
         descList.add(calcSScore(questionResult));
         sub.setQuestionResultDescList(descList);
         return sub;
+    }
+
+    public static Map<String,QuestionResultDesc>  calcIndividualScore(QuestionResult questionResult){
+        Map<String,QuestionResultDesc> questionResultDescMap = new HashMap<>();
+        for (int i = 1; i<=12; i++){
+            QuestionResultDesc desc = getSubResultDesc(questionResult,"P"+i);
+            questionResultDescMap.put(i+"",desc);
+        }
+
+        questionResultDescMap.put("L",calcLScore(questionResult));
+        questionResultDescMap.put("S",calcSScore(questionResult));
+        return questionResultDescMap;
     }
 
     private static QuestionResultDesc calcLScore(QuestionResult questionResult){
@@ -258,6 +333,8 @@ public class COPA {
         questionResultDesc.setScore(stdScore);
         COPAScoreSuggest suggest = suggestMap.get(subName);
         questionResultDesc.setSuggest(suggest.getDescByScore(stdScore));
+
+        questionResultDesc.setScoreAndLevel(stdScore+"("+scoreDesc.getLevelByScore(stdScore)+")");
         return questionResultDesc;
     }
 

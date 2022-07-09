@@ -42,7 +42,7 @@ public class COPAScoreSuggest {
         }else if (stdScore <55){
             return getMiddleDesc();
         }else{
-            return "";
+            return getHighDesc();
         }
     }
 }

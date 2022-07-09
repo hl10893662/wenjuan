@@ -72,6 +72,26 @@ public class UserInfo implements Serializable {
 
     private String isBuild;
 
+    private String bigGroupNo;
+
+    private String groupNo;
+
+    public String getBigGroupNo() {
+        return bigGroupNo;
+    }
+
+    public void setBigGroupNo(String bigGroupNo) {
+        this.bigGroupNo = bigGroupNo;
+    }
+
+    public String getGroupNo() {
+        return groupNo;
+    }
+
+    public void setGroupNo(String groupNo) {
+        this.groupNo = groupNo;
+    }
+
     public String getPrison() {
         return prison;
     }

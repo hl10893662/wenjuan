@@ -45,4 +45,14 @@ public class COPAScoreDesc {
             return getHighDesc();
         }
     }
+    //T≤45，属于较低分级；45＜T＜55，属于中等分级；T》=55属于高分级
+    public String getLevelByScore(long stdScore){
+        if (stdScore <= 45){
+            return "低分";
+        }else if (stdScore <55){
+            return "中等";
+        }else{
+            return "高分";
+        }
+    }
 }

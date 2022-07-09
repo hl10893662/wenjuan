@@ -24,6 +24,15 @@ public class PersonalityScoreDesc {
             return getHighDesc();
         }
     }
+    public String getLevelByScore(long stdScore){
+        if (stdScore <= lowScore){
+            return "低分";
+        }else if (stdScore <= middleScore){
+            return "中分";
+        }else{
+            return "高分";
+        }
+    }
 
     public int getLowScore() {
         return lowScore;
