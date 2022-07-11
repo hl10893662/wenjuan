@@ -1,27 +1,50 @@
-package com.eno.baozi.wenjuan.service.impl;
+package com.eno.baozi.dangerous.report.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.eno.baozi.dangerous.report.domain.Individuality;
 import com.eno.baozi.dangerous.report.mapper.IndividualityMapper;
+import com.eno.baozi.dangerous.report.service.IIndividualityService;
 import com.eno.baozi.wenjuan.domain.QuestionResult;
 import com.eno.baozi.wenjuan.domain.QuestionResultDesc;
 import com.eno.baozi.wenjuan.domain.UserInfo;
 import com.eno.baozi.wenjuan.questionslove.personality.Personality;
-import com.eno.baozi.wenjuan.service.IIndividualityService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Primary
 @Service
-@DS("individual")
 public class IndividualityServiceImpl implements IIndividualityService {
 
     @Resource
     IndividualityMapper individualityMapper;
+
+    @Override
+    public List<Individuality> queryIndividualityByPolice(String prisonName,String bigGroupName,String groupName) {
+        StringBuffer name = new StringBuffer(prisonName);
+
+        List<Individuality> individualityList = new ArrayList<>();
+        if (!StringUtils.isEmpty(bigGroupName)){
+            name.append(bigGroupName);
+            if (!StringUtils.isEmpty(groupName)){
+                name.append(groupName);
+                individualityList = individualityMapper.groupingByGroupName(name.toString());
+            }else{
+                individualityList = individualityMapper.groupingByBigGroupName(name.toString());
+            }
+        }else{
+            individualityList = individualityMapper.groupingByPrisonName(name.toString());
+
+        }
+        return individualityList;
+    }
+
     @Override
     public void saveIndividuality(UserInfo userInfo, QuestionResult questionResult) {
         Individuality individuality = new Individuality();

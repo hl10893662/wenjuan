@@ -1,7 +1,9 @@
 package com.eno.baozi.wenjuan.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.eno.baozi.dangerous.report.domain.Individuality;
 import com.eno.baozi.dangerous.report.mapper.IndividualityMapper;
+import com.eno.baozi.dangerous.report.service.IIndividualityService;
 import com.eno.baozi.wenjuan.common.util.NameConvert;
 import com.eno.baozi.wenjuan.domain.ChartData;
 import com.eno.baozi.wenjuan.domain.PoliceInfo;
@@ -12,8 +14,8 @@ import com.eno.baozi.wenjuan.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,9 @@ public class SummaryServiceImpl implements ISummaryService {
 
     @Autowired
     IndividualityMapper individualityMapper;
+
+    @Resource
+    IIndividualityService individualityService;
 
     @Autowired
     IUserService userService;
@@ -42,19 +47,20 @@ public class SummaryServiceImpl implements ISummaryService {
         summaryInfo.setInPrison(100);
 
         StringBuffer name = new StringBuffer(policeInfo.getPrisonName());
-        List<Individuality> individualityList = new ArrayList<>();
-        if (!StringUtils.isEmpty(policeInfo.getBigGroupName())){
-            name.append(policeInfo.getBigGroupName());
-            if (!StringUtils.isEmpty(policeInfo.getGroupName())){
-                name.append(policeInfo.getGroupName());
-                individualityList = individualityMapper.groupingByGroupName(name.toString());
-            }else{
-                individualityList = individualityMapper.groupingByBigGroupName(name.toString());
-            }
-        }else{
-            individualityList = individualityMapper.groupingByPrisonName(name.toString());
-
-        }
+        List<Individuality> individualityList = individualityService.queryIndividualityByPolice(policeInfo.getPrisonName(),
+                policeInfo.getBigGroupName(),policeInfo.getGroupName());
+//        if (!StringUtils.isEmpty(policeInfo.getBigGroupName())){
+//            name.append(policeInfo.getBigGroupName());
+//            if (!StringUtils.isEmpty(policeInfo.getGroupName())){
+//                name.append(policeInfo.getGroupName());
+//                individualityList = individualityMapper.groupingByGroupName(name.toString());
+//            }else{
+//                individualityList = individualityMapper.groupingByBigGroupName(name.toString());
+//            }
+//        }else{
+//            individualityList = individualityMapper.groupingByPrisonName(name.toString());
+//
+//        }
 
         Map<String,Double> escapeMap = new HashMap<>();
         Map<String,Double> suicideMap = new HashMap<>();

@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 //@MapperScan("com.eno")
 //@SpringBootApplication
@@ -47,7 +48,8 @@ import org.springframework.context.annotation.Bean;
 //    }
 //}
 
-@MapperScan("com.eno")
+@MapperScan({"com.eno.baozi.wenjuan.dao","com.eno.baozi.dangerous.report.mapper"})
+@ComponentScan("com.eno")
 @SpringBootApplication
 public class WenjuanApplication {
     public static void main(String[] args) {
