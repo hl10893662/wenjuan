@@ -51,8 +51,9 @@ public class QuestionServiceImpl implements IQuestionService {
 
         //判断用户是否存在
         String criminalNo = questionResultDTO.getCirminalNo();
-        UserInfo userInfo =  userInfoMapper.selectByPrimaryKey(criminalNo);
-        if (userInfo == null){
+//        UserInfo userInfo =  userInfoMapper.selectByPrimaryKey(criminalNo);
+        UserInfoDetail userInfoDetail =  userInfoDetailMapper.selectByPrimaryKey(criminalNo);
+        if (userInfoDetail == null){
             throw new BusinessException("学员不存在，请检查学员信息");
         }
 //        if (questionResultDTO.getCirminalName() == null ||
@@ -63,19 +64,19 @@ public class QuestionServiceImpl implements IQuestionService {
         QuestionResult questionResult = new QuestionResult();
         questionResult.setQuestionNo(questionResultDTO.getQuestionNo());
         questionResult.setResult(questionResultDTO.getResult());
-        questionResult.setCriminalName(userInfo.getName());
+        questionResult.setCriminalName(userInfoDetail.getName());
         questionResult.setCriminalId(questionResultDTO.getCirminalNo());
         questionResult.setCreateTime(new Date());
         questionResultMapper.insert(questionResult);
         //写入危评，临时处理
-        if ( "3".equals(questionResultDTO.getQuestionNo())){
-            CriminalInfo criminalInfo = new CriminalInfo();
-            criminalInfo.setNo(criminalNo);
-            criminalInfo.setName(userInfo.getName());
-            buildReportByQuestionNo(criminalInfo,"1");
-
-            individualityService.saveIndividuality(userInfo,questionResult);
-        }
+//        if ( "3".equals(questionResultDTO.getQuestionNo())){
+//            CriminalInfo criminalInfo = new CriminalInfo();
+//            criminalInfo.setNo(criminalNo);
+//            criminalInfo.setName(userInfo.getName());
+//            buildReportByQuestionNo(criminalInfo,"1");
+//
+//            individualityService.saveIndividuality(userInfo,questionResult);
+//        }
 
     }
 
@@ -251,7 +252,12 @@ public class QuestionServiceImpl implements IQuestionService {
     @Override
     public void saveUserBasicInfo(SaveBasicInfoDTO1 saveBasicInfoDTO){
         UserInfoDetail userInfoDetail =saveBasicInfoDTO1Convert2UserInfoDetail(saveBasicInfoDTO);
-        userInfoDetailMapper.insert(userInfoDetail);
+        UserInfoDetail userInfoDetail1 = userInfoDetailMapper.selectByPrimaryKey(userInfoDetail.getNo());
+        if (userInfoDetail1 != null){
+            userInfoDetailMapper.updateByPrimaryKey(userInfoDetail);
+        }else{
+            userInfoDetailMapper.insert(userInfoDetail);
+        }
     }
 
     @Override

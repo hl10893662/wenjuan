@@ -20,9 +20,9 @@
         <!--jdbc的数据库连接 -->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://localhost:3306/wenjuan"
+                connectionURL="jdbc:mysql://124.222.183.197:3306/wenjuan"
                 userId="wenjuan"
-                password="123456">
+                password="pNfSfd6FGESJkynA">
         </jdbcConnection>
 
 
@@ -67,7 +67,8 @@
         </javaClientGenerator>
 <!--        <table tableName="units" domainObjectName="Units" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
-        <table tableName="user_info_template" domainObjectName="UserInfoTemplate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<!--        <table tableName="cron_mark" domainObjectName="CronMark" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <table tableName="outline_question" domainObjectName="OutlineQuestion" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 
 
 <!--        <table tableName="criminal" domainObjectName="Criminal" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
