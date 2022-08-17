@@ -3,6 +3,7 @@ package com.eno.baozi.wenjuan.controller;
 import com.eno.baozi.wenjuan.common.domain.PageRequest;
 import com.eno.baozi.wenjuan.common.domain.PageResponse;
 import com.eno.baozi.wenjuan.domain.*;
+import com.eno.baozi.wenjuan.service.IOutlineQuestionService;
 import com.eno.baozi.wenjuan.service.IQuestionService;
 import com.eno.baozi.wenjuan.service.IReportService;
 import com.eno.baozi.wenjuan.service.IUserService;
@@ -14,9 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/api/report")
@@ -31,6 +29,9 @@ public class ReportController {
 
     @Autowired
     IUserService userService;
+
+    @Autowired
+    IOutlineQuestionService outlineQuestionService;
 
     @Value("${dangerous.report.path}")
     String dangerousReportPath;
@@ -111,6 +112,27 @@ public class ReportController {
             return dto;
         }
 
+    }
+
+
+    @ApiOperation(value = "queryOutLineQuestion", notes = "查询访谈提纲")
+    @RequestMapping(value = "/queryOutLineQuestion",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public ResponseDTO<OutLineQuestionMain> queryOutLineQuestion(@RequestBody CriminalInfo criminalInfo, @RequestHeader("X-Token") String token) {
+        logger.info("请求参数:"+criminalInfo.toString());
+        ResponseDTO dto = new ResponseDTO();
+        try{
+            dto.setCode(20000);
+            OutLineQuestionMain outLineQuestionMain =  outlineQuestionService.queryOutLineQuestion(criminalInfo);
+            dto.setData(outLineQuestionMain);
+            return dto;
+        }catch(Exception e){
+            e.printStackTrace();
+            OutLineQuestionMain  outLineQuestionMain = new OutLineQuestionMain();
+            outLineQuestionMain.setResult("查询异常，请检查查询条件或稍后再试");
+            dto.setCode(30000);
+            return dto;
+        }
     }
 
 }

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.wenjuan.dao.OutlineQuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.wenjuan.domain.OutlineQuestion" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="template_main_no" property="templateMainNo" jdbcType="INTEGER" />
+    <result column="template_sub_no" property="templateSubNo" jdbcType="INTEGER" />
+    <result column="division" property="division" jdbcType="VARCHAR" />
+    <result column="division_name" property="divisionName" jdbcType="VARCHAR" />
+    <result column="groups" property="groups" jdbcType="VARCHAR" />
+    <result column="groups_name" property="groupsName" jdbcType="VARCHAR" />
+    <result column="clazz" property="clazz" jdbcType="VARCHAR" />
+    <result column="clazz_name" property="clazzName" jdbcType="VARCHAR" />
+    <result column="not_in_clazz" property="notInClazz" jdbcType="INTEGER" />
+    <result column="preinstall_question" property="preinstallQuestion" jdbcType="VARCHAR" />
+    <result column="check_question" property="checkQuestion" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, template_main_no, template_sub_no, division, division_name, groups, groups_name,
+    clazz, clazz_name, not_in_clazz, preinstall_question, check_question, status, create_time,
+    update_time, create_by, update_by
+  </sql>
+
+  <select id="selectByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from outline_question
+    where status = #{status,jdbcType=INTEGER}
+    order by template_sub_no asc
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from outline_question
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from outline_question
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.wenjuan.domain.OutlineQuestion" >
+    insert into outline_question (id, template_main_no, template_sub_no,
+      division, division_name, groups,
+      groups_name, clazz, clazz_name,
+      not_in_clazz, preinstall_question, check_question,
+      status, create_time, update_time,
+      create_by, update_by)
+    values (#{id,jdbcType=INTEGER}, #{templateMainNo,jdbcType=INTEGER}, #{templateSubNo,jdbcType=INTEGER},
+      #{division,jdbcType=VARCHAR}, #{divisionName,jdbcType=VARCHAR}, #{groups,jdbcType=VARCHAR},
+      #{groupsName,jdbcType=VARCHAR}, #{clazz,jdbcType=VARCHAR}, #{clazzName,jdbcType=VARCHAR},
+      #{notInClazz,jdbcType=INTEGER}, #{preinstallQuestion,jdbcType=VARCHAR}, #{checkQuestion,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.wenjuan.domain.OutlineQuestion" >
+    insert into outline_question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="templateMainNo != null" >
+        template_main_no,
+      </if>
+      <if test="templateSubNo != null" >
+        template_sub_no,
+      </if>
+      <if test="division != null" >
+        division,
+      </if>
+      <if test="divisionName != null" >
+        division_name,
+      </if>
+      <if test="groups != null" >
+        groups,
+      </if>
+      <if test="groupsName != null" >
+        groups_name,
+      </if>
+      <if test="clazz != null" >
+        clazz,
+      </if>
+      <if test="clazzName != null" >
+        clazz_name,
+      </if>
+      <if test="notInClazz != null" >
+        not_in_clazz,
+      </if>
+      <if test="preinstallQuestion != null" >
+        preinstall_question,
+      </if>
+      <if test="checkQuestion != null" >
+        check_question,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="templateMainNo != null" >
+        #{templateMainNo,jdbcType=INTEGER},
+      </if>
+      <if test="templateSubNo != null" >
+        #{templateSubNo,jdbcType=INTEGER},
+      </if>
+      <if test="division != null" >
+        #{division,jdbcType=VARCHAR},
+      </if>
+      <if test="divisionName != null" >
+        #{divisionName,jdbcType=VARCHAR},
+      </if>
+      <if test="groups != null" >
+        #{groups,jdbcType=VARCHAR},
+      </if>
+      <if test="groupsName != null" >
+        #{groupsName,jdbcType=VARCHAR},
+      </if>
+      <if test="clazz != null" >
+        #{clazz,jdbcType=VARCHAR},
+      </if>
+      <if test="clazzName != null" >
+        #{clazzName,jdbcType=VARCHAR},
+      </if>
+      <if test="notInClazz != null" >
+        #{notInClazz,jdbcType=INTEGER},
+      </if>
+      <if test="preinstallQuestion != null" >
+        #{preinstallQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="checkQuestion != null" >
+        #{checkQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.wenjuan.domain.OutlineQuestion" >
+    update outline_question
+    <set >
+      <if test="templateMainNo != null" >
+        template_main_no = #{templateMainNo,jdbcType=INTEGER},
+      </if>
+      <if test="templateSubNo != null" >
+        template_sub_no = #{templateSubNo,jdbcType=INTEGER},
+      </if>
+      <if test="division != null" >
+        division = #{division,jdbcType=VARCHAR},
+      </if>
+      <if test="divisionName != null" >
+        division_name = #{divisionName,jdbcType=VARCHAR},
+      </if>
+      <if test="groups != null" >
+        groups = #{groups,jdbcType=VARCHAR},
+      </if>
+      <if test="groupsName != null" >
+        groups_name = #{groupsName,jdbcType=VARCHAR},
+      </if>
+      <if test="clazz != null" >
+        clazz = #{clazz,jdbcType=VARCHAR},
+      </if>
+      <if test="clazzName != null" >
+        clazz_name = #{clazzName,jdbcType=VARCHAR},
+      </if>
+      <if test="notInClazz != null" >
+        not_in_clazz = #{notInClazz,jdbcType=INTEGER},
+      </if>
+      <if test="preinstallQuestion != null" >
+        preinstall_question = #{preinstallQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="checkQuestion != null" >
+        check_question = #{checkQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.wenjuan.domain.OutlineQuestion" >
+    update outline_question
+    set template_main_no = #{templateMainNo,jdbcType=INTEGER},
+      template_sub_no = #{templateSubNo,jdbcType=INTEGER},
+      division = #{division,jdbcType=VARCHAR},
+      division_name = #{divisionName,jdbcType=VARCHAR},
+      groups = #{groups,jdbcType=VARCHAR},
+      groups_name = #{groupsName,jdbcType=VARCHAR},
+      clazz = #{clazz,jdbcType=VARCHAR},
+      clazz_name = #{clazzName,jdbcType=VARCHAR},
+      not_in_clazz = #{notInClazz,jdbcType=INTEGER},
+      preinstall_question = #{preinstallQuestion,jdbcType=VARCHAR},
+      check_question = #{checkQuestion,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
