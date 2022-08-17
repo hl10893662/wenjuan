@@ -45,6 +45,9 @@ public class UserInfoDetailSlove {
 
     private static OutlineQuestionByUserInfoDTO slove(int mainNo,int subNo,String result){
         OutlineQuestionByUserInfoDTO outlineQuestionByUserInfoDTO = new OutlineQuestionByUserInfoDTO();
+        outlineQuestionByUserInfoDTO.setMainNo(mainNo);
+        outlineQuestionByUserInfoDTO.setSubNo(subNo);
+        outlineQuestionByUserInfoDTO.setResult(result);
         return outlineQuestionByUserInfoDTO;
     }
 }
