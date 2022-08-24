@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 import com.eno.baozi.dangerous.report.service.IIndividualityService;
+import com.eno.baozi.sentiment.domain.Messages;
+import com.eno.baozi.sentiment.service.IMessagesService;
 import com.eno.baozi.wenjuan.common.domain.BusinessException;
 import com.eno.baozi.wenjuan.common.util.JsonUtil;
 import com.eno.baozi.wenjuan.common.util.ReferUtil;
@@ -16,11 +18,14 @@ import com.eno.baozi.wenjuan.questionslove.copa.COPA;
 import com.eno.baozi.wenjuan.questionslove.faceproblem.FaceProblem;
 import com.eno.baozi.wenjuan.questionslove.personality.Personality;
 import com.eno.baozi.wenjuan.service.IQuestionService;
+import org.aspectj.bridge.IMessage;
+import org.jsoup.Jsoup;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -44,6 +49,10 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Resource
     IIndividualityService individualityService;
+
+
+    @Resource
+    IMessagesService messagesService;
 
 
     @Override
@@ -124,7 +133,9 @@ public class QuestionServiceImpl implements IQuestionService {
 //        health.setMedicalHistory(ShowConvert.convertToShow(userInfoDetail.getMedicalHistory(),ShowConvert.MEDICAL_HISTORY_SHOW));
         health.setMedicalHistory(ShowConvert.convertStringArr2String(JsonUtil.string2StringArr(userInfoDetail.getMedicalHistory())));
         health.setDefect(ShowConvert.convertStringArr2String(JsonUtil.string2StringArr(userInfoDetail.getDefect())));
-        health.setRely(ShowConvert.convertToShow(userInfoDetail.getRely(),ShowConvert.RELY_SHOW));
+//        health.setRely(ShowConvert.convertToShow(userInfoDetail.getRely(),ShowConvert.RELY_SHOW));
+        health.setRely(ShowConvert.convertStringArr2String(JsonUtil.string2StringArr(userInfoDetail.getRely())));
+
         health.setOther(ShowConvert.convertToShow(userInfoDetail.getHealthOther(),ShowConvert.HEALTH_OTHER_SHOW));
         health.setOther(append(health.getOther(),userInfoDetail.getRemark4()));
 
@@ -243,10 +254,44 @@ public class QuestionServiceImpl implements IQuestionService {
         main.setRemark11(userInfoDetail.getRemark11());
         main.setRemark12(userInfoDetail.getRemark12());
         main.setRemark13(userInfoDetail.getRemark13());
+
+
+
+
+        //狱情信息
+        List<Messages> messagesList = messagesService.queryMessagesByCriminalNo(criminalInfo.getNo());
+        if(messagesList != null && messagesList.size()>0){
+            StringBuffer messageSb = new StringBuffer();
+            int index = 1;
+            for (Messages messages :messagesList){
+                if (messages.getContent() !=null){
+                    String str = Jsoup.parse(new String(messages.getContent())).text();
+                    messageSb.append(index).append("、").append("时间：").append(dateToStr(messages.getCreatedAt(),""))
+                            .append("，内容：").append(str).append("\n");
+                    index++;
+                }
+
+            }
+            main.setMessage(messageSb.toString());
+        }
         return main;
     }
 
-    //
+    private static String dateToStr(Date date, String dateFormat) {
+        //date为null时返回空字符串
+        if (date==null) {
+            return "";
+        }
+        //传入的时间格式不为空时
+        if (!StringUtils.isEmpty(dateFormat)) {
+            SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+            return sdf.format(date);
+        } else {
+            //传入的时间格式为空时默认格式为yyyy-MM-dd
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            return sdf.format(date);
+        }
+    }
 
 
     @Override
@@ -503,4 +548,7 @@ public class QuestionServiceImpl implements IQuestionService {
         }
 
     }
+
+
+
 }

@@ -1,12 +1,8 @@
-package com.eno.baozi.wenjuan.domain;
+package com.eno.baozi.sentiment.domain;
 
-import io.swagger.annotations.ApiModel;
-
-import java.io.Serializable;
 import java.util.Date;
 
-@ApiModel(value = "学员具体信息")
-public class UserInfo implements Serializable {
+public class UserInfo {
     private String no;
 
     private String groupno;
@@ -60,72 +56,6 @@ public class UserInfo implements Serializable {
     private String laborType;
 
     private String evaluateLevel;
-    private String imprisonBeginShow;
-
-    private String imprisonEndShow;
-
-    private String prison;
-
-    private String bigGroupName;
-
-    private String groupName;
-
-    private String isBuild;
-
-    private String bigGroupNo;
-
-    private String groupNo;
-
-    //**********************************非表结构信息**************************
-    private String keyword;
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
-
-    public String getBigGroupNo() {
-        return bigGroupNo;
-    }
-
-    public void setBigGroupNo(String bigGroupNo) {
-        this.bigGroupNo = bigGroupNo;
-    }
-
-    public String getGroupNo() {
-        return groupNo;
-    }
-
-    public void setGroupNo(String groupNo) {
-        this.groupNo = groupNo;
-    }
-
-    public String getPrison() {
-        return prison;
-    }
-
-    public void setPrison(String prison) {
-        this.prison = prison;
-    }
-
-    public String getImprisonBeginShow() {
-        return imprisonBeginShow;
-    }
-
-    public void setImprisonBeginShow(String imprisonBeginShow) {
-        this.imprisonBeginShow = imprisonBeginShow;
-    }
-
-    public String getImprisonEndShow() {
-        return imprisonEndShow;
-    }
-
-    public void setImprisonEndShow(String imprisonEndShow) {
-        this.imprisonEndShow = imprisonEndShow;
-    }
 
     public String getNo() {
         return no;
@@ -341,29 +271,5 @@ public class UserInfo implements Serializable {
 
     public void setEvaluateLevel(String evaluateLevel) {
         this.evaluateLevel = evaluateLevel == null ? null : evaluateLevel.trim();
-    }
-
-    public String getBigGroupName() {
-        return bigGroupName;
-    }
-
-    public void setBigGroupName(String bigGroupName) {
-        this.bigGroupName = bigGroupName;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
-    public String getIsBuild() {
-        return isBuild;
-    }
-
-    public void setIsBuild(String isBuild) {
-        this.isBuild = isBuild;
     }
 }

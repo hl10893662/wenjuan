@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eno.baozi.sentiment.dao.MessagesMapper">
+  <resultMap id="BaseResultMap" type="com.eno.baozi.sentiment.domain.Messages">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="unit_id" jdbcType="INTEGER" property="unitId" />
+    <result column="score" jdbcType="BIT" property="score" />
+    <result column="important" jdbcType="BIT" property="important" />
+    <result column="reply_count" jdbcType="TINYINT" property="replyCount" />
+    <result column="edit_at" jdbcType="TIMESTAMP" property="editAt" />
+    <result column="judge_id" jdbcType="INTEGER" property="judgeId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="quality" jdbcType="TINYINT" property="quality" />
+    <result column="evaluator_id" jdbcType="INTEGER" property="evaluatorId" />
+    <result column="evaluate_level" jdbcType="VARCHAR" property="evaluateLevel" />
+    <result column="supplied_at" jdbcType="TIMESTAMP" property="suppliedAt" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eno.baozi.sentiment.domain.Messages">
+    <result column="content" jdbcType="LONGVARBINARY" property="content" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ExtendCriminalMap" type="com.eno.baozi.sentiment.domain.Messages">
+    <result column="content" jdbcType="LONGVARBINARY" property="content" />
+    <result column="criminal_id" jdbcType="INTEGER" property="criminalId" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <sql id="Base_Column_List">
+      id, created_at, updated_at,
+      user_id, unit_id, score,
+      important, reply_count, edit_at,
+      judge_id, status, quality,
+      evaluator_id, evaluate_level, supplied_at
+  </sql>
+
+  <sql id = "Extend_Column_list">
+    criminal_id
+  </sql>
+
+
+  <select id="selectTheDayBeforeById" resultMap="ResultMapWithBLOBs"  >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,
+    no
+    from messages
+    where id >#{lastId,jdbcType=INTEGER}
+    and unit_id = #{unitId,jdbcType=INTEGER}
+    <![CDATA[
+        and  created_at <  CURDATE()
+    ]]>
+    order by id asc
+    limit #{pageSize,jdbcType=INTEGER}
+
+  </select>
+
+
+<!--  <select id="selectTheDayBeforeForAllById" resultMap="ExtendCriminalMap"  >-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    ,-->
+<!--    <include refid="Blob_Column_List" />-->
+<!--    ,-->
+<!--    <include refid="Extend_Column_list" />-->
+<!--    from messages m, criminal_message cm,-->
+
+<!--    where cm.criminal_id = #{criminalId,jdbcType=INTEGER}-->
+<!--    and  m.id = cm.message_id-->
+
+<!--  </select>-->
+
+
+  <select id="queryMessagesByCriminalNo" resultMap="ExtendCriminalMap"  >
+    select
+    m.id, m.created_at, m.updated_at,
+    user_id, m.unit_id, score,
+    important, reply_count, m.edit_at,
+    judge_id, status, quality,
+    evaluator_id, evaluate_level, supplied_at,
+    <include refid="Blob_Column_List" />
+    ,
+    <include refid="Extend_Column_list" />
+    ,c.number as no
+    from messages m,criminal_message cm,criminals c
+    where c.number =  #{no,jdbcType=INTEGER}
+    and m.id = cm.message_id
+    and c.id = cm.criminal_id
+    order by m.created_at asc
+  </select>
+
+
+    <select id="selectTheDayBeforeForAllById" resultMap="ResultMapWithBLOBs"  >
+    select
+      m.id, m.created_at, m.updated_at,
+      user_id, m.unit_id, score,
+      important, reply_count, m.edit_at,
+      judge_id, status, quality,
+      evaluator_id, evaluate_level, supplied_at,
+        content,c.number as no
+    from messages m,criminal_message cm,criminals c
+    where m.id >#{lastId,jdbcType=INTEGER}
+    <![CDATA[
+        and  m.created_at <  CURDATE()
+    ]]>
+    and m.id = cm.message_id
+    and c.id = cm.criminal_id
+    order by id asc
+    limit #{pageSize,jdbcType=INTEGER}
+
+  </select>
+
+  <insert id="insert" parameterType="com.eno.baozi.sentiment.domain.Messages">
+    insert into messages (id, created_at, updated_at,
+      user_id, unit_id, score,
+      important, reply_count, edit_at,
+      judge_id, status, quality,
+      evaluator_id, evaluate_level, supplied_at,
+      content)
+    values (#{id,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP},
+      #{userId,jdbcType=INTEGER}, #{unitId,jdbcType=INTEGER}, #{score,jdbcType=BIT},
+      #{important,jdbcType=BIT}, #{replyCount,jdbcType=TINYINT}, #{editAt,jdbcType=TIMESTAMP},
+      #{judgeId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{quality,jdbcType=TINYINT},
+      #{evaluatorId,jdbcType=INTEGER}, #{evaluateLevel,jdbcType=VARCHAR}, #{suppliedAt,jdbcType=TIMESTAMP},
+      #{content,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.sentiment.domain.Messages">
+    insert into messages
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="important != null">
+        important,
+      </if>
+      <if test="replyCount != null">
+        reply_count,
+      </if>
+      <if test="editAt != null">
+        edit_at,
+      </if>
+      <if test="judgeId != null">
+        judge_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="quality != null">
+        quality,
+      </if>
+      <if test="evaluatorId != null">
+        evaluator_id,
+      </if>
+      <if test="evaluateLevel != null">
+        evaluate_level,
+      </if>
+      <if test="suppliedAt != null">
+        supplied_at,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=BIT},
+      </if>
+      <if test="important != null">
+        #{important,jdbcType=BIT},
+      </if>
+      <if test="replyCount != null">
+        #{replyCount,jdbcType=TINYINT},
+      </if>
+      <if test="editAt != null">
+        #{editAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="judgeId != null">
+        #{judgeId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="quality != null">
+        #{quality,jdbcType=TINYINT},
+      </if>
+      <if test="evaluatorId != null">
+        #{evaluatorId,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateLevel != null">
+        #{evaluateLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="suppliedAt != null">
+        #{suppliedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+</mapper>

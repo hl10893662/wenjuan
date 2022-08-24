@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.sentiment.dao.CriminalsMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.sentiment.domain.Criminals" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="crime" property="crime" jdbcType="VARCHAR" />
+    <result column="imprisonment" property="imprisonment" jdbcType="VARCHAR" />
+    <result column="start" property="start" jdbcType="DATE" />
+    <result column="in" property="in" jdbcType="DATE" />
+    <result column="end" property="end" jdbcType="DATE" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="unit_id" property="unitId" jdbcType="DOUBLE" />
+    <result column="xb" property="xb" jdbcType="VARCHAR" />
+    <result column="mz" property="mz" jdbcType="VARCHAR" />
+    <result column="xwhcd" property="xwhcd" jdbcType="VARCHAR" />
+    <result column="bqzy" property="bqzy" jdbcType="VARCHAR" />
+    <result column="hy" property="hy" jdbcType="VARCHAR" />
+    <result column="jtdz" property="jtdz" jdbcType="VARCHAR" />
+    <result column="ypjg" property="ypjg" jdbcType="VARCHAR" />
+    <result column="bznx" property="bznx" jdbcType="VARCHAR" />
+    <result column="jxcs" property="jxcs" jdbcType="TINYINT" />
+    <result column="jxfd" property="jxfd" jdbcType="VARCHAR" />
+    <result column="xaflb" property="xaflb" jdbcType="VARCHAR" />
+    <result column="fylx" property="fylx" jdbcType="VARCHAR" />
+    <result column="fgdj" property="fgdj" jdbcType="VARCHAR" />
+    <result column="sfzh" property="sfzh" jdbcType="VARCHAR" />
+    <result column="hazard_level" property="hazardLevel" jdbcType="TINYINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.eno.baozi.sentiment.domain.Criminals" extends="BaseResultMap" >
+    <result column="fzss" property="fzss" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, number, name, crime, imprisonment, start, in, end, birthday, unit_id, xb, mz, 
+    xwhcd, bqzy, hy, jtdz, ypjg, bznx, jxcs, jxfd, xaflb, fylx, fgdj, sfzh, hazard_level
+  </sql>
+  <sql id="Blob_Column_List" >
+    fzss
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from criminals
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from criminals
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.sentiment.domain.Criminals" >
+    insert into criminals (id, number, name, 
+      crime, imprisonment, start, 
+      in, end, birthday, unit_id, 
+      xb, mz, xwhcd, bqzy, 
+      hy, jtdz, ypjg, bznx, 
+      jxcs, jxfd, xaflb, 
+      fylx, fgdj, sfzh, hazard_level, 
+      fzss)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{crime,jdbcType=VARCHAR}, #{imprisonment,jdbcType=VARCHAR}, #{start,jdbcType=DATE}, 
+      #{in,jdbcType=DATE}, #{end,jdbcType=DATE}, #{birthday,jdbcType=DATE}, #{unitId,jdbcType=DOUBLE}, 
+      #{xb,jdbcType=VARCHAR}, #{mz,jdbcType=VARCHAR}, #{xwhcd,jdbcType=VARCHAR}, #{bqzy,jdbcType=VARCHAR}, 
+      #{hy,jdbcType=VARCHAR}, #{jtdz,jdbcType=VARCHAR}, #{ypjg,jdbcType=VARCHAR}, #{bznx,jdbcType=VARCHAR}, 
+      #{jxcs,jdbcType=TINYINT}, #{jxfd,jdbcType=VARCHAR}, #{xaflb,jdbcType=VARCHAR}, 
+      #{fylx,jdbcType=VARCHAR}, #{fgdj,jdbcType=VARCHAR}, #{sfzh,jdbcType=VARCHAR}, #{hazardLevel,jdbcType=TINYINT}, 
+      #{fzss,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.sentiment.domain.Criminals" >
+    insert into criminals
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="crime != null" >
+        crime,
+      </if>
+      <if test="imprisonment != null" >
+        imprisonment,
+      </if>
+      <if test="start != null" >
+        start,
+      </if>
+      <if test="in != null" >
+        in,
+      </if>
+      <if test="end != null" >
+        end,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="xb != null" >
+        xb,
+      </if>
+      <if test="mz != null" >
+        mz,
+      </if>
+      <if test="xwhcd != null" >
+        xwhcd,
+      </if>
+      <if test="bqzy != null" >
+        bqzy,
+      </if>
+      <if test="hy != null" >
+        hy,
+      </if>
+      <if test="jtdz != null" >
+        jtdz,
+      </if>
+      <if test="ypjg != null" >
+        ypjg,
+      </if>
+      <if test="bznx != null" >
+        bznx,
+      </if>
+      <if test="jxcs != null" >
+        jxcs,
+      </if>
+      <if test="jxfd != null" >
+        jxfd,
+      </if>
+      <if test="xaflb != null" >
+        xaflb,
+      </if>
+      <if test="fylx != null" >
+        fylx,
+      </if>
+      <if test="fgdj != null" >
+        fgdj,
+      </if>
+      <if test="sfzh != null" >
+        sfzh,
+      </if>
+      <if test="hazardLevel != null" >
+        hazard_level,
+      </if>
+      <if test="fzss != null" >
+        fzss,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="crime != null" >
+        #{crime,jdbcType=VARCHAR},
+      </if>
+      <if test="imprisonment != null" >
+        #{imprisonment,jdbcType=VARCHAR},
+      </if>
+      <if test="start != null" >
+        #{start,jdbcType=DATE},
+      </if>
+      <if test="in != null" >
+        #{in,jdbcType=DATE},
+      </if>
+      <if test="end != null" >
+        #{end,jdbcType=DATE},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="unitId != null" >
+        #{unitId,jdbcType=DOUBLE},
+      </if>
+      <if test="xb != null" >
+        #{xb,jdbcType=VARCHAR},
+      </if>
+      <if test="mz != null" >
+        #{mz,jdbcType=VARCHAR},
+      </if>
+      <if test="xwhcd != null" >
+        #{xwhcd,jdbcType=VARCHAR},
+      </if>
+      <if test="bqzy != null" >
+        #{bqzy,jdbcType=VARCHAR},
+      </if>
+      <if test="hy != null" >
+        #{hy,jdbcType=VARCHAR},
+      </if>
+      <if test="jtdz != null" >
+        #{jtdz,jdbcType=VARCHAR},
+      </if>
+      <if test="ypjg != null" >
+        #{ypjg,jdbcType=VARCHAR},
+      </if>
+      <if test="bznx != null" >
+        #{bznx,jdbcType=VARCHAR},
+      </if>
+      <if test="jxcs != null" >
+        #{jxcs,jdbcType=TINYINT},
+      </if>
+      <if test="jxfd != null" >
+        #{jxfd,jdbcType=VARCHAR},
+      </if>
+      <if test="xaflb != null" >
+        #{xaflb,jdbcType=VARCHAR},
+      </if>
+      <if test="fylx != null" >
+        #{fylx,jdbcType=VARCHAR},
+      </if>
+      <if test="fgdj != null" >
+        #{fgdj,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzh != null" >
+        #{sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="hazardLevel != null" >
+        #{hazardLevel,jdbcType=TINYINT},
+      </if>
+      <if test="fzss != null" >
+        #{fzss,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.sentiment.domain.Criminals" >
+    update criminals
+    <set >
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="crime != null" >
+        crime = #{crime,jdbcType=VARCHAR},
+      </if>
+      <if test="imprisonment != null" >
+        imprisonment = #{imprisonment,jdbcType=VARCHAR},
+      </if>
+      <if test="start != null" >
+        start = #{start,jdbcType=DATE},
+      </if>
+      <if test="in != null" >
+        in = #{in,jdbcType=DATE},
+      </if>
+      <if test="end != null" >
+        end = #{end,jdbcType=DATE},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="unitId != null" >
+        unit_id = #{unitId,jdbcType=DOUBLE},
+      </if>
+      <if test="xb != null" >
+        xb = #{xb,jdbcType=VARCHAR},
+      </if>
+      <if test="mz != null" >
+        mz = #{mz,jdbcType=VARCHAR},
+      </if>
+      <if test="xwhcd != null" >
+        xwhcd = #{xwhcd,jdbcType=VARCHAR},
+      </if>
+      <if test="bqzy != null" >
+        bqzy = #{bqzy,jdbcType=VARCHAR},
+      </if>
+      <if test="hy != null" >
+        hy = #{hy,jdbcType=VARCHAR},
+      </if>
+      <if test="jtdz != null" >
+        jtdz = #{jtdz,jdbcType=VARCHAR},
+      </if>
+      <if test="ypjg != null" >
+        ypjg = #{ypjg,jdbcType=VARCHAR},
+      </if>
+      <if test="bznx != null" >
+        bznx = #{bznx,jdbcType=VARCHAR},
+      </if>
+      <if test="jxcs != null" >
+        jxcs = #{jxcs,jdbcType=TINYINT},
+      </if>
+      <if test="jxfd != null" >
+        jxfd = #{jxfd,jdbcType=VARCHAR},
+      </if>
+      <if test="xaflb != null" >
+        xaflb = #{xaflb,jdbcType=VARCHAR},
+      </if>
+      <if test="fylx != null" >
+        fylx = #{fylx,jdbcType=VARCHAR},
+      </if>
+      <if test="fgdj != null" >
+        fgdj = #{fgdj,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzh != null" >
+        sfzh = #{sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="hazardLevel != null" >
+        hazard_level = #{hazardLevel,jdbcType=TINYINT},
+      </if>
+      <if test="fzss != null" >
+        fzss = #{fzss,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.eno.baozi.sentiment.domain.Criminals" >
+    update criminals
+    set number = #{number,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      crime = #{crime,jdbcType=VARCHAR},
+      imprisonment = #{imprisonment,jdbcType=VARCHAR},
+      start = #{start,jdbcType=DATE},
+      in = #{in,jdbcType=DATE},
+      end = #{end,jdbcType=DATE},
+      birthday = #{birthday,jdbcType=DATE},
+      unit_id = #{unitId,jdbcType=DOUBLE},
+      xb = #{xb,jdbcType=VARCHAR},
+      mz = #{mz,jdbcType=VARCHAR},
+      xwhcd = #{xwhcd,jdbcType=VARCHAR},
+      bqzy = #{bqzy,jdbcType=VARCHAR},
+      hy = #{hy,jdbcType=VARCHAR},
+      jtdz = #{jtdz,jdbcType=VARCHAR},
+      ypjg = #{ypjg,jdbcType=VARCHAR},
+      bznx = #{bznx,jdbcType=VARCHAR},
+      jxcs = #{jxcs,jdbcType=TINYINT},
+      jxfd = #{jxfd,jdbcType=VARCHAR},
+      xaflb = #{xaflb,jdbcType=VARCHAR},
+      fylx = #{fylx,jdbcType=VARCHAR},
+      fgdj = #{fgdj,jdbcType=VARCHAR},
+      sfzh = #{sfzh,jdbcType=VARCHAR},
+      hazard_level = #{hazardLevel,jdbcType=TINYINT},
+      fzss = #{fzss,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.sentiment.domain.Criminals" >
+    update criminals
+    set number = #{number,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      crime = #{crime,jdbcType=VARCHAR},
+      imprisonment = #{imprisonment,jdbcType=VARCHAR},
+      start = #{start,jdbcType=DATE},
+      in = #{in,jdbcType=DATE},
+      end = #{end,jdbcType=DATE},
+      birthday = #{birthday,jdbcType=DATE},
+      unit_id = #{unitId,jdbcType=DOUBLE},
+      xb = #{xb,jdbcType=VARCHAR},
+      mz = #{mz,jdbcType=VARCHAR},
+      xwhcd = #{xwhcd,jdbcType=VARCHAR},
+      bqzy = #{bqzy,jdbcType=VARCHAR},
+      hy = #{hy,jdbcType=VARCHAR},
+      jtdz = #{jtdz,jdbcType=VARCHAR},
+      ypjg = #{ypjg,jdbcType=VARCHAR},
+      bznx = #{bznx,jdbcType=VARCHAR},
+      jxcs = #{jxcs,jdbcType=TINYINT},
+      jxfd = #{jxfd,jdbcType=VARCHAR},
+      xaflb = #{xaflb,jdbcType=VARCHAR},
+      fylx = #{fylx,jdbcType=VARCHAR},
+      fgdj = #{fgdj,jdbcType=VARCHAR},
+      sfzh = #{sfzh,jdbcType=VARCHAR},
+      hazard_level = #{hazardLevel,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

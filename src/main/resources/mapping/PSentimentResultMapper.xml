@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.sentiment.dao.PSentimentResultMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.sentiment.domain.PSentimentResult" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="unit_id" property="unitId" jdbcType="INTEGER" />
+    <result column="first_level" property="firstLevel" jdbcType="VARCHAR" />
+    <result column="second_level" property="secondLevel" jdbcType="VARCHAR" />
+    <result column="sentiment_date" property="sentimentDate" jdbcType="DATE" />
+    <result column="sentiment_id" property="sentimentId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.eno.baozi.sentiment.domain.PSentimentResult" extends="BaseResultMap" >
+    <result column="info" property="info" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, no, name, unit_id, first_level, second_level, sentiment_date, sentiment_id, create_time,
+    update_time, score, keyword
+  </sql>
+  <sql id="Blob_Column_List" >
+    info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from p_sentiment_result
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="queryListByCriminalNo" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from p_sentiment_result
+    where no = #{no,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from p_sentiment_result
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.sentiment.domain.PSentimentResult" >
+    insert into p_sentiment_result (id, no, name,
+      unit_id, first_level, second_level,
+      sentiment_date, sentiment_id, create_time,
+      update_time, score, info, keyword
+      )
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{unitId,jdbcType=INTEGER}, #{firstLevel,jdbcType=VARCHAR}, #{secondLevel,jdbcType=VARCHAR},
+      #{sentimentDate,jdbcType=DATE}, #{sentimentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, #{info,jdbcType=LONGVARCHAR},
+      #{keyword,jdbcType=VARCHAR}
+      )
+  </insert>
+
+
+
+
+  <insert id="batchInsert" parameterType="java.util.List"  keyProperty="id">
+    insert into p_sentiment_result ( no,
+    first_level, second_level,
+    sentiment_date, sentiment_id, create_time,
+    update_time, score,keyword
+    )
+    values
+    <foreach collection ="resultList" item="result" index="index" separator =",">
+     ( #{result.no,jdbcType=VARCHAR},  #{result.firstLevel,jdbcType=VARCHAR}, #{result.secondLevel,jdbcType=VARCHAR},
+      #{result.sentimentDate,jdbcType=DATE}, #{result.sentimentId,jdbcType=INTEGER}, #{result.createTime,jdbcType=TIMESTAMP},
+      #{result.updateTime,jdbcType=TIMESTAMP}, #{result.score,jdbcType=INTEGER},#{result.keyword,jdbcType=VARCHAR}
+      )
+    </foreach>
+
+  </insert>
+
+
+  <insert id="insertSelective" parameterType="com.eno.baozi.sentiment.domain.PSentimentResult" >
+    insert into p_sentiment_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="firstLevel != null" >
+        first_level,
+      </if>
+      <if test="secondLevel != null" >
+        second_level,
+      </if>
+      <if test="sentimentDate != null" >
+        sentiment_date,
+      </if>
+      <if test="sentimentId != null" >
+        sentiment_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="keyword != null" >
+        keyword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null" >
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="firstLevel != null" >
+        #{firstLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="secondLevel != null" >
+        #{secondLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="sentimentDate != null" >
+        #{sentimentDate,jdbcType=DATE},
+      </if>
+      <if test="sentimentId != null" >
+        #{sentimentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.sentiment.domain.PSentimentResult" >
+    update p_sentiment_result
+    <set >
+      <if test="no != null" >
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        unit_id = #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="firstLevel != null" >
+        first_level = #{firstLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="secondLevel != null" >
+        second_level = #{secondLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="sentimentDate != null" >
+        sentiment_date = #{sentimentDate,jdbcType=DATE},
+      </if>
+      <if test="sentimentId != null" >
+        sentiment_id = #{sentimentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.eno.baozi.sentiment.domain.PSentimentResult" >
+    update p_sentiment_result
+    set no = #{no,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      unit_id = #{unitId,jdbcType=INTEGER},
+      first_level = #{firstLevel,jdbcType=VARCHAR},
+      second_level = #{secondLevel,jdbcType=VARCHAR},
+      sentiment_date = #{sentimentDate,jdbcType=DATE},
+      sentiment_id = #{sentimentId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER},
+      info = #{info,jdbcType=LONGVARCHAR},
+      keyword = #{keyword,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.sentiment.domain.PSentimentResult" >
+    update p_sentiment_result
+    set no = #{no,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      unit_id = #{unitId,jdbcType=INTEGER},
+      first_level = #{firstLevel,jdbcType=VARCHAR},
+      second_level = #{secondLevel,jdbcType=VARCHAR},
+      sentiment_date = #{sentimentDate,jdbcType=DATE},
+      sentiment_id = #{sentimentId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER},
+      keyword = #{keyword,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

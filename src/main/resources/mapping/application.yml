@@ -1,0 +1,47 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    dynamic:
+      primary: wenjuan #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        wenjuan:
+          url: jdbc:mysql://127.0.0.1:3306/wenjuan?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+          username: wenjuan
+          password: 123456
+          driver-class-name: com.mysql.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
+        individual:
+          url: jdbc:mysql://10.76.0.175:3306/sh-jyglj?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+          username: hazard
+          password: hazard
+          driver-class-name: com.mysql.jdbc.Driver
+        yq:
+          url: jdbc:mysql://10.5.35.8:3306/messages?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+          username: hazard
+          password: hazard
+          driver-class-name: com.mysql.jdbc.Driver
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.eno.baozi.wenjuan.dao
+
+logging:
+  level:
+    com:
+      eno: debug
+    org:
+      springframework: debug
+  file: c:/wenjuan/log.log
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+dangerous:
+  report:
+    path: http://127.0.0.1:9999/#/report/index
+

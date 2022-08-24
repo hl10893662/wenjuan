@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eno.baozi.sentiment.dao.CronMarkMapper" >
+  <resultMap id="BaseResultMap" type="com.eno.baozi.sentiment.domain.CronMark" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="fstamp" property="fstamp" jdbcType="TIMESTAMP" />
+    <result column="fversion" property="fversion" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, flag, fstamp, fversion
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from cron_mark
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByFlag" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from cron_mark
+    where flag = #{flag,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cron_mark
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eno.baozi.sentiment.domain.CronMark" >
+    insert into cron_mark (id, flag, fstamp,
+      fversion)
+    values (#{id,jdbcType=INTEGER}, #{flag,jdbcType=VARCHAR},
+    #{fstamp,jdbcType=TIMESTAMP},
+      #{fversion,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eno.baozi.sentiment.domain.CronMark" >
+    insert into cron_mark
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="fstamp != null" >
+        fstamp,
+      </if>
+      <if test="fversion != null" >
+        fversion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="fstamp != null" >
+        #{fstamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fversion != null" >
+        #{fversion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eno.baozi.sentiment.domain.CronMark" >
+    update cron_mark
+    <set >
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="fstamp != null" >
+        fstamp = #{fstamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fversion != null" >
+        fversion = #{fversion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eno.baozi.sentiment.domain.CronMark" >
+    update cron_mark
+    set flag = #{flag,jdbcType=VARCHAR},
+      fstamp = #{fstamp,jdbcType=TIMESTAMP},
+      fversion = #{fversion,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

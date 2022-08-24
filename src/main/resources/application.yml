@@ -31,6 +31,18 @@ spring:
           username: root
           password: 123456
           driver-class-name: com.mysql.jdbc.Driver
+#        # 默认
+#        yqAnalyse:
+#          url: jdbc:mysql://127.0.0.1:3306/yqana?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+#          username: root
+#          password: 123456
+#          driver-class-name: com.mysql.jdbc.Driver
+        # 狱情信息
+        yq:
+          url: jdbc:mysql://127.0.0.1:3306/yq?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.jdbc.Driver
 
 
 mybatis:
@@ -54,5 +66,5 @@ pagehelper:
   params: count=countSql
 dangerous:
   report:
-    path: http://www.google.com
+    path: http://127.0.0.1:9999/#/report/index
 

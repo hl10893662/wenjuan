@@ -1,5 +1,7 @@
 package com.eno.baozi.wenjuan.service.impl;
 
+import com.eno.baozi.sentiment.domain.PSentimentResult;
+import com.eno.baozi.sentiment.service.ISentimentService;
 import com.eno.baozi.wenjuan.common.domain.PageRequest;
 import com.eno.baozi.wenjuan.common.domain.PageResponse;
 import com.eno.baozi.wenjuan.common.util.PageUtils;
@@ -30,8 +32,12 @@ public class ReportServiceImpl implements IReportService {
     @Autowired
     UnitsMapper unitsMapper;
 
+    @Autowired
+    ISentimentService sentimentService;
+
     @Override
     public PageResponse<UserInfo> queryUserByPage(PageRequest<QueryUserDTO> pageRequest) {
+
         return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest));
     }
 
@@ -59,6 +65,20 @@ public class ReportServiceImpl implements IReportService {
             }
         }
         List<UserInfo> users =  userInfoMapper.selectPage(dto);
+        //增加狱情关键字查询
+        for(UserInfo userInfo :users){
+            List<PSentimentResult> pSentimentResultList = sentimentService.queryKeywordByCriminalNo(userInfo.getNo());
+            if (pSentimentResultList != null  && pSentimentResultList.size()>0){
+                StringBuffer keywordSb = new StringBuffer();
+                for(PSentimentResult pSentimentResult :pSentimentResultList){
+                    if (!StringUtils.isEmpty(pSentimentResult.getKeyword())){
+                        keywordSb.append(pSentimentResult.getKeyword()).append("、");
+                    }
+                }
+                userInfo.setKeyword(keywordSb.toString());
+            }
+        }
+
         return new PageInfo<UserInfo>(users);
     }
 }
