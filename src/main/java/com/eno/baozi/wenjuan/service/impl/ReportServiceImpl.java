@@ -49,7 +49,6 @@ public class ReportServiceImpl implements IReportService {
     private PageInfo<UserInfo> getPageInfo(PageRequest<QueryUserDTO> pageRequest) {
         int pageNum = pageRequest.getPageNum();
         int pageSize = pageRequest.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
         QueryUserDTO dto = pageRequest.getT();
         //由于前端传入的监区及分监区为编号，而user表中为名称，故需要转换为名称后进行查询
         if (!StringUtils.isEmpty(dto.getBigGroup())){
@@ -64,6 +63,7 @@ public class ReportServiceImpl implements IReportService {
                 dto.setGroup(units.getName());
             }
         }
+        PageHelper.startPage(pageNum, pageSize);
         List<UserInfo> users =  userInfoMapper.selectPage(dto);
         //增加狱情关键字查询
         for(UserInfo userInfo :users){
@@ -78,7 +78,8 @@ public class ReportServiceImpl implements IReportService {
                 userInfo.setKeyword(keywordSb.toString());
             }
         }
+        PageInfo<UserInfo> pageInfo =  new PageInfo<UserInfo>(users);
 
-        return new PageInfo<UserInfo>(users);
+        return pageInfo;
     }
 }
