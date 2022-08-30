@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Primary
@@ -70,10 +72,14 @@ public class ReportServiceImpl implements IReportService {
             List<PSentimentResult> pSentimentResultList = sentimentService.queryKeywordByCriminalNo(userInfo.getNo());
             if (pSentimentResultList != null  && pSentimentResultList.size()>0){
                 StringBuffer keywordSb = new StringBuffer();
+                Set<String> keywordSet = new HashSet<>();
                 for(PSentimentResult pSentimentResult :pSentimentResultList){
                     if (!StringUtils.isEmpty(pSentimentResult.getKeyword())){
-                        keywordSb.append(pSentimentResult.getKeyword()).append("、");
+                        keywordSet.add(pSentimentResult.getKeyword());
                     }
+                }
+                for (String keyword : keywordSet){
+                    keywordSb.append(keyword).append("、");
                 }
                 userInfo.setKeyword(keywordSb.toString());
             }
