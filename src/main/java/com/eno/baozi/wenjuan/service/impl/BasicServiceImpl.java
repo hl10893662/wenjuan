@@ -89,7 +89,14 @@ public class BasicServiceImpl implements IBasicService {
                 break;
             case OrgCode.ORG_PRISON:
                 unitsList = unitsMapper.selectBigGroupListByPrisonId(units.getId());
-                break;
+                List<PrisonGroupInfo> groupList = new ArrayList<>();
+                if (unitsList != null){
+                    for (Units unit :unitsList){
+                        List<PrisonGroupInfo>  subGroupList = queryGroupInfoByBigGroupNo(unit.getId()+"");
+                        groupList.addAll(subGroupList);
+                    }
+                }
+                return groupList;
             case OrgCode.ORG_PRISON_DEPART:
                 unitsList = unitsMapper.selectBigGroupListByPrisonId(units.getPrisonId());
                 break;

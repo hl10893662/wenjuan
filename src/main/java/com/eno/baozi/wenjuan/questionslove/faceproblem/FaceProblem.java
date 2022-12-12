@@ -28,6 +28,7 @@ public class FaceProblem {
         groups.put("P5", new int[]{7, 13, 16, 19, 24, 27, 32, 35, 44, 47});
         groups.put("P6", new int[]{6, 9, 18, 20, 30, 38, 52, 54, 58, 61});
 
+
     }
 
     public static QuestionResultSub buildReport(QuestionResult questionResult) {
@@ -40,6 +41,25 @@ public class FaceProblem {
             sub.put(questionResultDesc.getTypeName(),questionResultDesc.getScore());
         }
         sub.setQuestionResultDescList(descList);
+        //解决问题+求助=成熟型
+        double type1Score = sub.getScore().get(0)+sub.getScore().get(2);
+        //自责+幻想+退避=不成熟型
+        double type2Score = sub.getScore().get(1)+sub.getScore().get(3)+sub.getScore().get(4);
+        //合理化=混合型
+        double type3Score = sub.getScore().get(5);
+        if (type1Score>type2Score){
+            if (type1Score>type3Score){
+                sub.setRemark("“解决问题——求助”，成熟型：这类受试在面对应激事件或环境时，常能采取“解决问题”和“求助”等成熟的应付方式，而较少使用“退避”、“自责”、“幻想”等不成熟的应付方式，在生活中表现出一种成熟稳定的人格特征和行为方式。");
+            }else{
+                sub.setRemark("“合理化”，混合型：“合理化”应付因子，既与“解决问题”、“救助”等成熟应付因子呈正相关，也与“退避”、“幻想”等不成熟的应付因子呈正相关，反映出这类受试的应付行为集成熟与不成熟的应付方式于一体，在应付行为上表现出一种矛盾的心态和两面性的人格特点。");
+            }
+        }else {
+            if (type2Score>type3Score){
+                sub.setRemark("“退避——自责”，不成熟型：这类受试在生活中常以“退避”、“自责”、“幻想”等应付方式应付困难和挫折，而较少使用“解决问题”这类积极的应付方式，表现出一种神经症性的人格特点，其情绪和行为均缺乏稳定性。");
+            }else{
+                sub.setRemark("“合理化”，混合型：“合理化”应付因子，既与“解决问题”、“救助”等成熟应付因子呈正相关，也与“退避”、“幻想”等不成熟的应付因子呈正相关，反映出这类受试的应付行为集成熟与不成熟的应付方式于一体，在应付行为上表现出一种矛盾的心态和两面性的人格特点。");
+            }
+        }
         return sub;
     }
 

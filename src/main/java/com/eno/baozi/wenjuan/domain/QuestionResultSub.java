@@ -11,6 +11,7 @@ public class QuestionResultSub implements Cloneable{
 
     List<Double> score = new ArrayList<>();
     List<String> typeName = new ArrayList<>();
+    String remark;
 
     public void put(String typeName1,double score1){
         score.add(score1);
@@ -47,5 +48,13 @@ public class QuestionResultSub implements Cloneable{
 
     public void setTypeName(List<String> typeName) {
         this.typeName = typeName;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

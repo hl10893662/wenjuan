@@ -39,9 +39,9 @@ spring:
 #          driver-class-name: com.mysql.jdbc.Driver
         # 狱情信息
         yq:
-          url: jdbc:mysql://127.0.0.1:3306/yq?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
-          username: root
-          password: 123456
+          url: jdbc:mysql://124.222.183.197:3306/yq?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+          username: yq
+          password: jDPf8D32za6Skpw5
           driver-class-name: com.mysql.jdbc.Driver
 
 
@@ -68,3 +68,17 @@ dangerous:
   report:
     path: http://127.0.0.1:9999/#/report/index
 
+sync:
+  rate1: 0/10 * * * * ?
+  rate: 0 0 2 * * *
+  enable: true
+  source:
+    url: jdbc:mysql://127.0.0.1:3306/sourcetest?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+    username: root
+    password: 123456
+    driver: com.mysql.jdbc.Driver
+  target:
+    url: jdbc:mysql://127.0.0.1:3306/targettest?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+    username: root
+    password: 123456
+    driver: com.mysql.jdbc.Driver

@@ -114,6 +114,28 @@ public class ReportController {
 
     }
 
+    @ApiOperation(value = "queryCriminalInPrisonInfo", notes = "查询狱情信息")
+    @RequestMapping(value = "/queryCriminalInPrisonInfo",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public ResponseDTO<QuestionResultMain> queryPrisonInfo(@RequestBody CriminalInfo criminalInfo, @RequestHeader("X-Token") String token) {
+        logger.info("请求参数:"+criminalInfo.toString());
+        ResponseDTO dto = new ResponseDTO();
+
+        try{
+            dto.setCode(20000);
+            CriminalInPrisonInfo criminalInPrisonInfo =  questionService.queryCriminalInPrisonInfo(criminalInfo);
+            dto.setData(criminalInPrisonInfo);
+            return dto;
+        }catch(Exception e){
+            e.printStackTrace();
+            QuestionResultMain  main = new QuestionResultMain();
+            main.setResult("查询异常，请检查查询条件或稍后再试");
+            dto.setCode(30000);
+            return dto;
+        }
+
+    }
+
 
     @ApiOperation(value = "queryOutLineQuestion", notes = "查询访谈提纲")
     @RequestMapping(value = "/queryOutLineQuestion",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")

@@ -2,6 +2,8 @@ package com.eno.baozi.wenjuan.service;
 
 import com.eno.baozi.wenjuan.domain.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,4 +66,17 @@ public interface IQuestionService {
      * @return
      */
     List<UserInfoTemplate> queryUserInfoTemplate();
+
+    /**
+     * 按起止日期导出危险评估信息（excel）
+     */
+    List<DangerousDataExportDTO> exportDangerousDataByDate(String start, String end) throws InvocationTargetException, IllegalAccessException;
+
+    /**
+     * 查询狱情信息
+     * @param criminalInfo
+     * @return
+     */
+    public CriminalInPrisonInfo queryCriminalInPrisonInfo(CriminalInfo criminalInfo);
+
 }

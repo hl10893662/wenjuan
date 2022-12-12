@@ -27,6 +27,18 @@
     order by fid desc
     limit 1
   </select>
+
+
+  <select id="selectByTypeAndDate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from question_result
+    where question_no = #{questionNo,jdbcType=INTEGER}
+    and create_time <![CDATA[  >= ]]>  str_to_date( #{start},'%Y-%m-%d')
+    and create_time <![CDATA[  <= ]]>  str_to_date( #{end},'%Y-%m-%d')
+    order by fid asc
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from question_result
     where fid = #{fid,jdbcType=INTEGER}

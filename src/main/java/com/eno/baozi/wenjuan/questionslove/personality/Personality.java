@@ -5,6 +5,7 @@ import com.eno.baozi.wenjuan.domain.QuestionResult;
 import com.eno.baozi.wenjuan.domain.QuestionResultDesc;
 import com.eno.baozi.wenjuan.domain.QuestionResultSub;
 import com.eno.baozi.wenjuan.questionslove.copa.COPA;
+import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,8 +15,10 @@ import java.util.Map;
 public class Personality {
     static Map<String,int[]> groups = new HashMap<>();
     static Map<String, PersonalityScoreDesc> descMap = new HashMap<>();
-    static int[][] jsbGroup=new int[][]{{9,19,29,},{39,49,59,68},{76},{84,90},{96,101}};
+    static int[][] jsbGroup=new int[][]{{9,19,29},{39,49,59,68},{76},{84,90},{96,101}};
+    static String[] jsbGroupNickName  = new String[]{"jsbxhj","jsbxwx","jxbxqxza","jsbxrzza","jsbxjzzhz"};
     static Map<String,String> titleMap = new HashMap<>();
+    static Map<String,String> nickNameMap = new HashMap<>();
     static {
 
         titleMap.put("P1","反社会人格");
@@ -28,6 +31,19 @@ public class Personality {
         titleMap.put("P8","精神病性");
         titleMap.put("L","说谎量表");
         titleMap.put("JSB","精神病性分类");
+
+        nickNameMap.put("P1","fshrg");
+        nickNameMap.put("P2","pzxrg");
+        nickNameMap.put("P3","cdxrg");
+        nickNameMap.put("P4","byxrg");
+        nickNameMap.put("P5","yy");
+        nickNameMap.put("P6","zk");
+        nickNameMap.put("P7","sjz");
+        nickNameMap.put("P8","sjbx");
+        nickNameMap.put("L","shl");
+        nickNameMap.put("JSB","jsbx");
+
+
         groups.put("P1", new int[]{-1,11,21,31,41,51,61,69,77,85,-91,97,-102});
         groups.put("P2", new int[]{2,12,22,32,42,52,62,70,78,86,92,98,103});
         groups.put("P3", new int[]{3,13,23,33,43,53,63,71,79,87,-93,99,104});
@@ -91,6 +107,42 @@ public class Personality {
         return sub;
     }
 
+    public static Map<String,Object> calcScoreForexport(QuestionResult questionResult){
+        List<QuestionResultDesc> descList = new ArrayList<>();
+        Map<String,Object> questionResultScoreMap = new HashMap<>();
+
+        for (int i = 1; i <= 8; i++) {
+            QuestionResultDesc questionResultDesc = getSubResultDesc(questionResult, "P" + i);
+            descList.add(questionResultDesc);
+            questionResultScoreMap.put(nickNameMap.get("P" + i),
+                    Math.round(questionResultDesc.getScore()));
+        }
+        descList.add(calcLScore(questionResult));
+        questionResultScoreMap.put(nickNameMap.get("L"), (long) calcScore("L",questionResult));
+        //幻觉 9、19、29
+        //妄想39、49、59、68
+        //情绪障碍76
+        //认知障碍84、90
+        //紧张综合症96、101
+        for (int i = 0; i<jsbGroup.length; i++){
+            questionResultScoreMap.put(jsbGroupNickName[i], (long) calcScore(questionResult,jsbGroup[i]));
+        }
+        questionResultScoreMap.put("pgrq",questionResult.getCreateTime());
+        questionResultScoreMap.put("pghs",0);
+        return questionResultScoreMap;
+    }
+
+    private static int calcScore(QuestionResult questionResult, int[] intArr) {
+        String result = questionResult.getResult();
+        int score = 0;
+        for (int index : intArr) {
+            if ((result.charAt(Math.abs(index) - 1) == '1' && index > 0)) {
+                score++;
+            }
+        }
+        return score;
+    }
+
     public static Map<String,QuestionResultDesc>  calcIndividualScore(QuestionResult questionResult){
         Map<String,QuestionResultDesc> questionResultDescMap = new HashMap<>();
         for (int i = 1; i<=8; i++){
@@ -117,6 +169,8 @@ public class Personality {
         questionResultDesc.setScore(score);
         return questionResultDesc;
     }
+
+
 
     private static int calcScore(String titleName,QuestionResult questionResult){
         String result = questionResult.getResult();

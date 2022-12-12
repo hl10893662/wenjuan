@@ -18,13 +18,14 @@ import com.eno.baozi.wenjuan.questionslove.copa.COPA;
 import com.eno.baozi.wenjuan.questionslove.faceproblem.FaceProblem;
 import com.eno.baozi.wenjuan.questionslove.personality.Personality;
 import com.eno.baozi.wenjuan.service.IQuestionService;
-import org.aspectj.bridge.IMessage;
+import org.apache.commons.beanutils.BeanUtils;
 import org.jsoup.Jsoup;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -259,6 +260,27 @@ public class QuestionServiceImpl implements IQuestionService {
 
 
         //狱情信息
+//        List<Messages> messagesList = messagesService.queryMessagesByCriminalNo(criminalInfo.getNo());
+//        if(messagesList != null && messagesList.size()>0){
+//            StringBuffer messageSb = new StringBuffer();
+//            int index = 1;
+//            for (Messages messages :messagesList){
+//                if (messages.getContent() !=null){
+//                    String str = Jsoup.parse(new String(messages.getContent())).text();
+//                    messageSb.append(index).append("、").append("时间：").append(dateToStr(messages.getCreatedAt(),""))
+//                            .append("，内容：").append(str).append("\n");
+//                    index++;
+//                }
+//
+//            }
+//            main.setMessage(messageSb.toString());
+//        }
+        return main;
+    }
+
+    @Override
+    public CriminalInPrisonInfo queryCriminalInPrisonInfo(CriminalInfo criminalInfo){
+        CriminalInPrisonInfo criminalInPrisonInfo = new CriminalInPrisonInfo();
         List<Messages> messagesList = messagesService.queryMessagesByCriminalNo(criminalInfo.getNo());
         if(messagesList != null && messagesList.size()>0){
             StringBuffer messageSb = new StringBuffer();
@@ -272,9 +294,9 @@ public class QuestionServiceImpl implements IQuestionService {
                 }
 
             }
-            main.setMessage(messageSb.toString());
+            criminalInPrisonInfo.setMessage(messageSb.toString());
         }
-        return main;
+        return criminalInPrisonInfo;
     }
 
     private static String dateToStr(Date date, String dateFormat) {
@@ -550,5 +572,24 @@ public class QuestionServiceImpl implements IQuestionService {
     }
 
 
+    @Override
+    public List<DangerousDataExportDTO> exportDangerousDataByDate(String start, String end) throws InvocationTargetException, IllegalAccessException {
+        List<QuestionResult>  questionResultList = questionResultMapper.selectByTypeAndDate(3,start,end);
+        List<DangerousDataExportDTO> list = new ArrayList<>();
+        int index = 1;
+        for (QuestionResult questionResult : questionResultList){
+            Map<String,Object>  map = Personality.calcScoreForexport(questionResult);
+            DangerousDataExportDTO dto = new DangerousDataExportDTO();
+            BeanUtils.populate(dto, map);
+            dto.setOrder(index);
+            dto.setNo(questionResult.getCriminalId());
+            dto.setName(questionResult.getCriminalName());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            dto.setPgrq(sdf.format(questionResult.getCreateTime()));
+            list.add(dto);
+            index++;
+        }
+        return list;
+    }
 
 }

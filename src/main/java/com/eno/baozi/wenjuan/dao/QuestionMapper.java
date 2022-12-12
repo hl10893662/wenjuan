@@ -3,6 +3,7 @@ package com.eno.baozi.wenjuan.dao;
 import com.eno.baozi.wenjuan.domain.Question;
 
 import javax.print.attribute.standard.RequestingUserName;
+import java.util.Date;
 import java.util.List;
 
 public interface QuestionMapper {
@@ -19,4 +20,5 @@ public interface QuestionMapper {
     int updateByPrimaryKey(Question record);
 
     List<Question> selectByMainNoAndSubNo(int mainNo);
+
 }
