@@ -6,6 +6,8 @@ import com.alibaba.fastjson.TypeReference;
 import com.eno.baozi.dangerous.report.service.IIndividualityService;
 import com.eno.baozi.sentiment.domain.Messages;
 import com.eno.baozi.sentiment.service.IMessagesService;
+import com.eno.baozi.telephone.service.ICalledInfoService;
+import com.eno.baozi.telephone.service.ICalllogService;
 import com.eno.baozi.wenjuan.common.domain.BusinessException;
 import com.eno.baozi.wenjuan.common.util.JsonUtil;
 import com.eno.baozi.wenjuan.common.util.ReferUtil;
@@ -54,6 +56,12 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Resource
     IMessagesService messagesService;
+
+    @Resource
+    ICalllogService calllogService;
+
+    @Resource
+    ICalledInfoService calledInfoService;
 
 
     @Override
@@ -206,6 +214,11 @@ public class QuestionServiceImpl implements IQuestionService {
                 familyDetailShow.setRelation(familyStatus.getRelation());
 //                familyDetailShow.setOccupation(ShowConvert.OCCUPATION_SHOW[Integer.parseInt(familyStatus.getFamilyOccupation())]);
                 familyDetailShow.setFeeling(ShowConvert.LEVEL_SHOW[Integer.parseInt(familyStatus.getFeeling())]);
+
+                //增加通话次数查询
+                familyDetailShow.setCallTimes(calllogService.queryCalltimesByCalled(criminalInfo.getNo(),familyStatus.getName()));
+                //查询号码
+                familyDetailShow.setPhoneNo(calledInfoService.querytelephoneNobyName(criminalInfo.getNo(), familyStatus.getName()));
                 familyDetailShowList.add(familyDetailShow);
             }
         }

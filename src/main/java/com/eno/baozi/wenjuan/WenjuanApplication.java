@@ -48,7 +48,7 @@ import org.springframework.context.annotation.ComponentScan;
 //    }
 //}
 
-@MapperScan({"com.eno.baozi.wenjuan.dao","com.eno.baozi.dangerous.report.mapper","com.eno.baozi.sentiment.dao",})
+@MapperScan({"com.eno.baozi.wenjuan.dao","com.eno.baozi.dangerous.report.mapper","com.eno.baozi.sentiment.dao","com.eno.baozi.telephone.dao",})
 @ComponentScan("com.eno")
 @SpringBootApplication
 public class WenjuanApplication {

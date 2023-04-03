@@ -34,8 +34,8 @@
     <include refid="Base_Column_List" />
     from question_result
     where question_no = #{questionNo,jdbcType=INTEGER}
-    and create_time <![CDATA[  >= ]]>  str_to_date( #{start},'%Y-%m-%d')
-    and create_time <![CDATA[  <= ]]>  str_to_date( #{end},'%Y-%m-%d')
+    and create_time <![CDATA[  >= ]]>  date_add(str_to_date( #{start},'%Y-%m-%d'), interval -1 day)
+    and create_time <![CDATA[  <= ]]>  date_add(str_to_date( #{end},'%Y-%m-%d'), interval 1 day)
     order by fid asc
   </select>
 

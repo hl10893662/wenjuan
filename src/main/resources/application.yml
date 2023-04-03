@@ -43,6 +43,12 @@ spring:
           username: yq
           password: jDPf8D32za6Skpw5
           driver-class-name: com.mysql.jdbc.Driver
+        # 亲情电话
+        qqdh:
+          url: jdbc:mysql://124.222.183.197:3306/prisonphone?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+          username: prisonphone
+          password: root
+          driver-class-name: com.mysql.jdbc.Driver
 
 
 mybatis:
@@ -50,14 +56,15 @@ mybatis:
   type-aliases-package: com.eno.baozi.wenjuan.dao
 
 logging:
-  level:
-    com:
-      eno: debug
-    org:
-      springframework: debug
-  file:
-    max-size: 10MB
-    max-history: 20
+  config: classpath:logback.xml
+#  level:
+#    com:
+#      eno: debug
+#    org:
+#      springframework: debug
+#  file:
+#    max-size: 10MB
+#    max-history: 20
 
 pagehelper:
   helperDialect: mysql

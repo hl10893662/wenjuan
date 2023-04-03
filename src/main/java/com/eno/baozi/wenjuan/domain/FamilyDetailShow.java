@@ -7,6 +7,27 @@ public class FamilyDetailShow implements Serializable {
     public String name;
     public String relation;
     public String feeling;
+    public String phoneNo;
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public int getCallTimes() {
+        return callTimes;
+    }
+
+    public void setCallTimes(int callTimes) {
+        this.callTimes = callTimes;
+    }
+
+    public int callTimes;
+
+
 
     public String getStage() {
         return stage;
